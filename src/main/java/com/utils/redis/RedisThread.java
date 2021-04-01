@@ -1,13 +1,7 @@
 package com.utils.redis;
 
-import com.utils.WcsStart;
-import com.utils.spring.SpringBootUtil;
-import org.springframework.boot.SpringApplication;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+import java.util.Collection;
 
-import java.util.Set;
 
 /**
  * @author xs
@@ -15,18 +9,10 @@ import java.util.Set;
  */
 public class RedisThread {
     public static void main(String[] args) {
-        SpringApplication.run(WcsStart.class, args);
-
-
-        RedisTemplate redisTemplate = (RedisTemplate) SpringBootUtil.getBean("redisTemplate");
-        RedisSerializer stringSerializer = new StringRedisSerializer();
-        redisTemplate.setKeySerializer(stringSerializer);
-        redisTemplate.setValueSerializer(stringSerializer);
-        redisTemplate.setHashKeySerializer(stringSerializer);
-        redisTemplate.setHashValueSerializer(stringSerializer);
-        Set keys = redisTemplate.keys("*");
+        //往redis中写入数据
+        new RedisUtil().setObject("111","222");
+        //获取redis中所有键值
+        Collection<String> keys = new RedisUtil().getKeys("*");
         System.out.println(keys);
-        //redisTemplate.opsForValue().set("WcsMessage", "11");
-
     }
 }
