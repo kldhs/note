@@ -12,16 +12,19 @@ import org.springframework.stereotype.Component;
 @PropertySource(value = "classpath:/threadPoolConfig.properties")
 @Component
 @Getter
-public class ThreadPoolConfig {
+public class ThreadPoolConfigPoJo {
     @Value("${corePoolSize}")
     private Integer corePoolSize;
 
     @Value("${maxPoolSize}")
-    private Integer startY;
+    private Integer maxPoolSize;
 
     @Value("${queueCapacity}")
-    private Integer startZ;
+    private Integer queueCapacity;
 
     @Value("${keepAlive}")
-    private Integer lockLength;
+    private Integer keepAlive;
+
+    @Value("${threadNamePrefix}")
+    private String threadNamePrefix;
 }
