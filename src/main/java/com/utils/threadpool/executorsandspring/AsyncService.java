@@ -1,4 +1,4 @@
-package com.utils.threadpool;
+package com.utils.threadpool.executorsandspring;
 
 /**
  * @author xs
@@ -8,6 +8,5 @@ public interface AsyncService {
     /**
      * 执行异步任务
      */
-
     void executeAsync();
 }
