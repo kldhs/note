@@ -1,4 +1,4 @@
-package com.utils.threadpool;
+package com.utils.threadpool.executorsandspring;
 
 import com.utils.config.ThreadPoolConfigPoJo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class ThreadPoolConfig {
     @Autowired
     ThreadPoolConfigPoJo threadPoolConfigPoJo;
 
-    @Bean
+    @Bean("asyncServiceExecutor")
     public Executor asyncServiceExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new VisiableThreadPoolTaskExecutor();
         //ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();

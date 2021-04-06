@@ -9,10 +9,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 public class WcsStart {
+
     public static void main(String[] args) {
-
         SpringApplication.run(WcsStart.class, args);
-
         for (int i = 0; i <=10 ; i++) {
             AsyncService asyncService = (AsyncService) SpringBootUtil.getBean(AsyncService.class);
             System.err.println(i+"----start submit");
