@@ -1,4 +1,4 @@
-package com.utils.threadpool;
+package com.utils.threadpool.executorsandspring;
 
 import org.springframework.stereotype.Component;
 
