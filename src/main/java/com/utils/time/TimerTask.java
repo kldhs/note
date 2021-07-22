@@ -1,6 +1,6 @@
 package com.utils.time;
 
-import com.utils.RedisConfig;
+import com.utils.config.ConfigsPoJo;
 import com.utils.spring.SpringBootUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -25,6 +25,7 @@ public class TimerTask {
         try {
             System.err.println("hiahia: " + new Date());
             RedisConfig bean = SpringBootUtil.getBean(RedisConfig.class);
+            ConfigsPoJo aa = SpringBootUtil.getBean(ConfigsPoJo.class);
             System.out.println("111111111111111");
         } catch (Exception e) {
             e.printStackTrace();
