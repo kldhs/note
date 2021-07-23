@@ -18,13 +18,10 @@ import java.util.Date;
 @Component //标注一个类为Spring容器的Bean
 @PropertySource("classpath:timer-task.properties")
 public class TimerTask {
-    @Autowired
-    RedisConfig redisConfig;
     @Scheduled(cron = "${taskTime}")
     public void tokenPub() {
         try {
             System.err.println("hiahia: " + new Date());
-            RedisConfig bean = SpringBootUtil.getBean(RedisConfig.class);
             ConfigsPoJo aa = SpringBootUtil.getBean(ConfigsPoJo.class);
             System.out.println("111111111111111");
         } catch (Exception e) {

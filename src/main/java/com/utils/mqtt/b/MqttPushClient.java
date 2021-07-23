@@ -1,12 +1,12 @@
-package com.mqtt;
+package com.utils.mqtt.b;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Configuration
@@ -14,9 +14,6 @@ public class MqttPushClient {
 
     private String url = "tcp://127.0.0.1:61613";
     private String clientId = "mqttProducer";
-
-    @Autowired
-    MqttConfig config;
 
     private static final byte[] WILL_DATA;
 
@@ -65,7 +62,7 @@ public class MqttPushClient {
             options.setKeepAliveInterval(20);
             // 设置“遗嘱”消息的话题，若客户端与服务器之间的连接意外中断，服务器将发布客户端的“遗嘱”消息。
             options.setWill("willTopic", WILL_DATA, 2, false);
-            client.setCallback(new PushCallback());
+            client.setCallback(new com.mqtt.PushCallback());
             client.connect(options);
         } catch (MqttException e) {
             e.printStackTrace();
