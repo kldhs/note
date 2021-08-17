@@ -5,19 +5,9 @@
 # 3、application.yml（application.properties) 应用程序特有配置信息，可以用来配置后续各个
 #   模块中需使用的公共参数等。
 
-#spring:
-##  profiles:
-##    active:
-##      local
+spring:
+  profiles:
+    active:
+      local
 
-jedis:
-  pool:
-    a: 1
-    b: 2
-    c: 3
-    d: 4
-    e: 5
-    f: 6
-    g: 7
-    h: 8
 

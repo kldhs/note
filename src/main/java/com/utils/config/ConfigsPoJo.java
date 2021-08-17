@@ -15,21 +15,29 @@ import java.util.Date;
  * 读取配置文件
  * @PropertySource 只能读取properties文件，如果想要读取yml文件需要复写相关方法
  * <p>
- * <p>
- * 方式1：
+ * -------------方式1：
  * @PropertySource 指定文件 + @Value 指定属性 读取.properties配置文件
- * 方式2：
+ * 例：
+ * @PropertySource(value = "classpath:/configs.properties")
+ * @Value("${test.x}") 。
+ * <p>
+ * -------------方式2：
  * @PropertySource 指定文件
  * @ConfigurationProperties 指定前缀 读取.properties配置文件
  * 只要是.properties配置文件都可以
- * 方式3：
- * @ConfigurationProperties 指定前缀 读取application.yml配置文件
+ * 例：
+ * @PropertySource(value = "classpath:/configs.properties")
+ * @ConfigurationProperties(prefix = "test")
+ * <p>
+ * -------------方式3：
+ * @ConfigurationProperties 指定前缀 读取.yml配置文件
  * .yml文件必须是被spring boot默认加载的.yml文件
+ * 例：
+ * @ConfigurationProperties(prefix = "test")spring boot默认加载的.yml文件中必须有以test为前缀的属性
  */
-
 @Component
-@PropertySource(value = "classpath:/configs.properties")
-//@ConfigurationProperties(prefix = "test")
+//@PropertySource(value = "classpath:/configs.properties")
+@ConfigurationProperties(prefix = "test")
 public class ConfigsPoJo {
     //@Value("${test.x}")
     private int x;

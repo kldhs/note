@@ -1,3 +1,7 @@
+test:
+  x: 1
+  y: 1
+  z: 1
 spring:
   application:
     name: iot-udp-api
