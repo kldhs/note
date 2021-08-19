@@ -1,6 +1,7 @@
 package com.utils.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -8,22 +9,22 @@ import org.springframework.stereotype.Component;
  * @author xs
  * @date 2021/04/01 13:33
  */
-@PropertySource(value = "classpath:/threadPoolConfig.properties")
+@ConfigurationProperties(prefix = "threadpool")
 @Component
 public class ThreadPoolConfigPoJo {
-    @Value("${corePoolSize}")
+    //@Value("${corePoolSize}")
     private Integer corePoolSize;
 
-    @Value("${maxPoolSize}")
+    //@Value("${maxPoolSize}")
     private Integer maxPoolSize;
 
-    @Value("${queueCapacity}")
+    //@Value("${queueCapacity}")
     private Integer queueCapacity;
 
-    @Value("${keepAlive}")
+    //@Value("${keepAlive}")
     private Integer keepAlive;
 
-    @Value("${threadNamePrefix}")
+    //@Value("${threadNamePrefix}")
     private String threadNamePrefix;
 
     public Integer getCorePoolSize() {

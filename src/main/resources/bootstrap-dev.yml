@@ -1,22 +1,7 @@
-spring:
-  application:
-    name: iot-udp-api
-  cloud:
-    nacos:
-      config:
-        server-addr: 172.17.16.32:8848,172.17.16.41:8848,172.17.16.49:8848
-        group: dev
-        file-extension: yaml
-        namespace: ed53a89f-ef05-4790-bd75-1dddf3e777d3
-        shared-dataids: common.yml,jedis.yml
-        refreshable-dataids: common.yml,jedis.yml
-
-jedis:
-  a: 1
-  b: 2
-  c: 3
-  d: 4
-  e: 5
-  f: 6
-  g: 7
-  h: 8
+#线程池参数
+threadpool:
+  corePoolSize: 10
+  maxPoolSize: 30
+  queueCapacity: 8
+  keepAlive: 60
+  threadNamePrefix: "hiahia"
