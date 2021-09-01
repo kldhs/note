@@ -1,4 +1,4 @@
-package com.utils.mqtt;
+package com.utils.mqtt0;
 
 /**
  * @author xs
@@ -23,16 +23,16 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  *
  */
 public class PushCallback implements MqttCallback {
-
+    @Override
     public void connectionLost(Throwable cause) {
         // 连接丢失后，一般在这里面进行重连   连接丢失后
         System.out.println("连接断开，可以做重连");
     }
-
+    @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
         System.out.println("推送合理呀deliveryComplete---------" + token.isComplete());
     }
-
+    @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         // subscribe后得到的消息会执行到这里面
         System.out.println("接收消息主题 : " + topic);
