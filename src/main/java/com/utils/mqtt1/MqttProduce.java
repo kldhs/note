@@ -1,6 +1,5 @@
 package com.utils.mqtt1;
 
-import com.utils.mqtt0.PushCallback;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.stereotype.Component;

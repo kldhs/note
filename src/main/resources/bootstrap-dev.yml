@@ -5,3 +5,9 @@ threadpool:
   queueCapacity: 8
   keepAlive: 60
   threadNamePrefix: "hiahia"
+
+mqtt:
+  ip : "8.140.98.89"
+  port : 1883
+  userName : "admin"
+  passWord : "admin"

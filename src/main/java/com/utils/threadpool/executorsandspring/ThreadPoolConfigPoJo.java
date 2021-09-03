@@ -1,4 +1,4 @@
-package com.utils.config;
+package com.utils.threadpool.executorsandspring;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,6 +1,5 @@
 package com.utils.threadpool.executorsandspring;
 
-import com.utils.config.ThreadPoolConfigPoJo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
