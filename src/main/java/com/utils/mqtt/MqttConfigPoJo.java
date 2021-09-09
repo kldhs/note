@@ -9,11 +9,14 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "mqtt")
 @Component
-public class MqttConfig {
+public class MqttConfigPoJo {
     protected String ip;
     protected int port;
+    protected boolean cleanSession;
     protected String userName;
     protected String passWord;
+    protected int connectionTimeout;
+    protected int keepAliveInterval;
 
     public String getIp() {
         return ip;
@@ -31,6 +34,14 @@ public class MqttConfig {
         this.port = port;
     }
 
+    public boolean isCleanSession() {
+        return cleanSession;
+    }
+
+    public void setCleanSession(boolean cleanSession) {
+        this.cleanSession = cleanSession;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -45,5 +56,21 @@ public class MqttConfig {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    public int getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(int connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
+
+    public int getKeepAliveInterval() {
+        return keepAliveInterval;
+    }
+
+    public void setKeepAliveInterval(int keepAliveInterval) {
+        this.keepAliveInterval = keepAliveInterval;
     }
 }

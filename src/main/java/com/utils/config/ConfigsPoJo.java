@@ -72,11 +72,11 @@ public class ConfigsPoJo {
         this.z = z;
     }
 
-    @Bean
-    public String aaa(String[] args) {
-        System.err.println("hiahia: " + new Date());
-        ConfigsPoJo aa = SpringBootUtil.getBean(ConfigsPoJo.class);
-        System.out.println("111111111111111");
-        return null;
-    }
+    //@Bean
+    //public String aaa(String[] args) {
+        //System.err.println("hiahia: " + new Date());
+        //ConfigsPoJo aa = SpringBootUtil.getBean(ConfigsPoJo.class);
+        //System.out.println("111111111111111");
+        //return null;
+    //}
 }

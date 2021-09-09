@@ -7,7 +7,10 @@ threadpool:
   threadNamePrefix: "hiahia"
 
 mqtt:
-  ip : "8.140.98.89"
-  port : 1883
-  userName : "admin"
-  passWord : "admin"
+  ip: "110.42.169.107"
+  port: 1883
+  cleanSession: true
+  userName: "admin"
+  passWord: "admin"
+  connectionTimeout: 1000
+  keepAliveInterval: 2000
