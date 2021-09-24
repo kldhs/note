@@ -10,7 +10,7 @@ mqtt:
   ip: "110.42.169.107"
   port: 1883
   cleanSession: true
-  userName: "admin"
-  passWord: "admin"
+  userName: "12_1111"
+  passWord: "123456"
   connectionTimeout: 1000
   keepAliveInterval: 2000
