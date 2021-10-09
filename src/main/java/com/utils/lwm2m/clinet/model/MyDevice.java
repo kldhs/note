@@ -3,6 +3,7 @@ package com.utils.lwm2m.clinet.model;
 
 import org.eclipse.leshan.client.resource.BaseInstanceEnabler;
 import org.eclipse.leshan.client.servers.ServerIdentity;
+import org.eclipse.leshan.core.Destroyable;
 import org.eclipse.leshan.core.model.ObjectModel;
 import org.eclipse.leshan.core.model.ResourceModel;
 import org.eclipse.leshan.core.node.LwM2mObjectInstance;
@@ -23,13 +24,19 @@ import java.util.*;
  * @create: 2020-09-04 12:27
  */
 
-public class MyDevice extends BaseInstanceEnabler {
+public class MyDevice extends BaseInstanceEnabler implements Destroyable {
+
     private static final Logger LOG = LoggerFactory.getLogger(MyDevice.class);
+
     private static final Random RANDOM = new Random();
+    private static final List<Integer> supportedResources = Arrays.asList(0, 1, 2, 3, 9, 10, 11, 13, 14, 15, 16, 17, 18,
+            19, 20, 21);
+
+    private final Timer timer;
 
     public MyDevice() {
         // notify new date each 5 second
-        Timer timer = new Timer("Device-Current Time");
+        this.timer = new Timer("Device-Current Time");
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -40,7 +47,8 @@ public class MyDevice extends BaseInstanceEnabler {
 
     @Override
     public ReadResponse read(ServerIdentity identity, int resourceid) {
-        LOG.info("Read on Device resource /{}/{}/{}", getModel().id, getId(), resourceid);
+        if (!identity.isSystem())
+            LOG.info("Read on Device resource /{}/{}/{}", getModel().id, getId(), resourceid);
         switch (resourceid) {
             case 0:
                 return ReadResponse.success(resourceid, getManufacturer());
@@ -107,8 +115,8 @@ public class MyDevice extends BaseInstanceEnabler {
 
     @Override
     public WriteResponse write(ServerIdentity identity, boolean replace, int resourceid, LwM2mResource value) {
-        LOG.info("write On Device value :{}", value.getValue());
         LOG.info("Write on Device resource /{}/{}/{}", getModel().id, getId(), resourceid);
+
         switch (resourceid) {
             case 13:
                 return WriteResponse.notFound();
@@ -118,14 +126,6 @@ public class MyDevice extends BaseInstanceEnabler {
                 return WriteResponse.success();
             case 15:
                 setTimezone((String) value.getValue());
-                fireResourcesChange(resourceid);
-                return WriteResponse.success();
-            case 200:
-                setTimezone(String.valueOf(value.getValue()));
-                fireResourcesChange(resourceid);
-                return WriteResponse.success();
-            case 199:
-                setUtcOffset(String.valueOf(value.getValue()));
                 fireResourcesChange(resourceid);
                 return WriteResponse.success();
             default:
@@ -211,8 +211,11 @@ public class MyDevice extends BaseInstanceEnabler {
 
     @Override
     public List<Integer> getAvailableResourceIds(ObjectModel model) {
-        ArrayList<Integer> resourceIds = new ArrayList<>(model.resources.keySet());
-        Collections.sort(resourceIds);
-        return resourceIds;
+        return supportedResources;
+    }
+
+    @Override
+    public void destroy() {
+        timer.cancel();
     }
 }
