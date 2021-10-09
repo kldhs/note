@@ -14,3 +14,7 @@ mqtt:
   passWord: "123456"
   connectionTimeout: 1000
   keepAliveInterval: 2000
+
+lwm2ma:
+  midBegin: "1111"
+  host: "110.42.169.107"

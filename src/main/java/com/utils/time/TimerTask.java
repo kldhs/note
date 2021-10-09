@@ -23,7 +23,7 @@ public class TimerTask {
         try {
             System.err.println("hiahia: " + new Date());
             ConfigsPoJo aa = SpringBootUtil.getBean(ConfigsPoJo.class);
-            System.out.println("111111111111111");
+            System.out.println("TimerTask: 定时器任务");
         } catch (Exception e) {
             e.printStackTrace();
         }
