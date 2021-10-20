@@ -1,4 +1,17 @@
-#线程池参数
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+    com:
+      example:
+        dao: INFO
+    druid:
+      sql:
+        ResultSet: INFO
+  config: classpath:logback-local.xml
+
+#线程池
 threadpool:
   corePoolSize: 10
   maxPoolSize: 30
@@ -7,13 +20,13 @@ threadpool:
   threadNamePrefix: "hiahia"
 
 mqtt:
-  ip: "110.42.169.107"
+  ip: "1.116.234.137"
   port: 1883
   cleanSession: true
   userName: "12_1111"
   passWord: "123456"
   connectionTimeout: 1000
-  keepAliveInterval: 2000
+  keepAliveInterval: 20
 
 lwm2ma:
   midBegin: "1111"
