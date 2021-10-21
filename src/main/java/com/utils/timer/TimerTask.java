@@ -1,8 +1,7 @@
-package com.utils.time;
+package com.utils.timer;
 
 import com.utils.config.ConfigsPoJo;
 import com.utils.spring.SpringBootUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,8 +13,8 @@ import java.util.Date;
  * @date 2021/7/21 16:53
  * 定时器
  */
-
-@Component //标注一个类为Spring容器的Bean
+//标注一个类为Spring容器的Bean
+@Component
 @PropertySource("classpath:timer-task.properties")
 public class TimerTask {
     @Scheduled(cron = "${taskTime}")

@@ -2,7 +2,6 @@ package com.utils.lwm2m.clinet.client;
 
 
 import com.utils.lwm2m.clinet.model.MyDevice;
-import com.utils.lwm2m.clinet.model.MyObject;
 import com.utils.lwm2m.clinet.model.MySimpleInstanceEnabler;
 import com.utils.lwm2m.clinet.model.ServerLwm2m;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
@@ -44,7 +43,7 @@ import java.util.concurrent.ScheduledExecutorService;
 @Component
 public class Lwm2mClient {
     private static final Logger logger = LoggerFactory.getLogger(Lwm2mClient.class);
-
+    Lwm2mConfigPoJo lwm2MConfigPoJo = SpringBootUtil.getBean(Lwm2mConfigPoJo.class);
     public final static String[] modelPaths = new String[]{
             "LWM2M_Device-v1_0_3.xml",
             "LWM2M_APN_Connection_Profile-v1_0_1.xml", "LWM2M_Bearer_Selection-v1_0_1.xml",
@@ -54,37 +53,17 @@ public class Lwm2mClient {
             "LWM2M_WLAN_connectivity4-v1_0.xml", "LwM2M_BinaryAppDataContainer-v1_0_1.xml",
             "LwM2M_EventLog-V1_0.xml", "LWM2M_Firmware_Update-v1_0_3.xml", "3308.xml"};
 
-    /**
-     * @Description: 多线程创建lwm2m2客户端
-     * @Param:
-     * @return:
-     * @Author: miaomingwei
-     * @date: 2020/8/31 16:36
-     */
-    public static void start() {
-        try {
-            Lwm2mConfigPoJo lwm2MConfigPoJo = SpringBootUtil.getBean(Lwm2mConfigPoJo.class);
-            initLwm2mClient(lwm2MConfigPoJo.getMidBegin());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    //public final static String[] modelPaths = new String[]{ "3308.xml"};
 
-    /**
-     * @Description: 初始化lwm2m对象的属性
-     * @Param:
-     * @return:
-     * @Author: miaomingwei
-     * @date: 2020/8/31 16:51
-     */
-    public static void initLwm2mClient(String sn) throws InvalidModelException, InvalidDDFFileException, IOException {
-        Lwm2mConfigPoJo lwm2MConfigPoJo = SpringBootUtil.getBean(Lwm2mConfigPoJo.class);
-        // 初始化模型
+
+    public void  createLwm2mClient(String sn) throws InvalidModelException, InvalidDDFFileException, IOException {
+        //加载默认对象
         List<ObjectModel> models = ObjectLoader.loadDefault();
+        //加载需要添加的对象
         models.addAll(ObjectLoader.loadDdfResources("/models/", modelPaths));
-        final LwM2mModel model = new StaticModel(models);
-        final ObjectsInitializer initializer = new ObjectsInitializer(model);
-        // 创建CoAP配置
+        //创建对象构造器
+        final ObjectsInitializer initializer = new ObjectsInitializer(new StaticModel(models));
+        //创建 CoAP 配置
         NetworkConfig coapConfig;
         File configFile = new File(NetworkConfig.DEFAULT_FILE_NAME);
         if (configFile.isFile()) {
@@ -94,16 +73,12 @@ public class Lwm2mClient {
             coapConfig = LeshanClientBuilder.createDefaultNetworkConfig();
             coapConfig.store(configFile);
         }
-        //设置附加属性
-        Map<String, String> additionalAttributes = new HashMap<String, String>();
-        additionalAttributes.put("hexString",
-                "7D0103520990017614810000612F43686E3C0005000008002BE104040100466EE60204036A3C5DE606020130E" +
-                        "6070403393432E6081817535230335F423330305F41544C5F312E302E392E303233");
+
         //设置实例
         MySimpleInstanceEnabler mySimpleInstanceEnabler = new MySimpleInstanceEnabler(0);
         mySimpleInstanceEnabler.setModel(models.get(21));
         MyDevice myDevice = new MyDevice();
-        MyObject myObject = new MyObject();
+        MyDevice myObject = new MyDevice();
         initializer.setInstancesForObject(LwM2mId.SECURITY,
                 Security.noSec("coap://" + lwm2MConfigPoJo.getHost() + ":5683", 12345));
         ServerLwm2m cv = new ServerLwm2m(12345, 5 * 60, BindingMode.U, false, "cv");
@@ -120,7 +95,10 @@ public class Lwm2mClient {
         //创建 client
         String endpoint = sn;
         LeshanClientBuilder builder = new LeshanClientBuilder(endpoint);
-        builder.setAdditionalAttributes(additionalAttributes);
+        //设置附加属性
+        Map<String, String> hashMap = new HashMap<String, String>();
+        hashMap.put("a","adc");
+        builder.setAdditionalAttributes(hashMap);
         builder.setCoapConfig(coapConfig);
         builder.setObjects(enablers);
         builder.setSharedExecutor(scheduledExecutorService);
