@@ -2,8 +2,6 @@ package com.utils.lwm2m.clinet.client;
 
 
 import com.utils.lwm2m.clinet.model.MyDevice;
-import com.utils.lwm2m.clinet.model.MySimpleInstanceEnabler;
-import com.utils.lwm2m.clinet.model.ServerLwm2m;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.spring.SpringBootUtil;
 import org.eclipse.californium.core.network.config.NetworkConfig;
@@ -13,7 +11,9 @@ import org.eclipse.californium.scandium.config.DtlsConnectorConfig;
 import org.eclipse.californium.scandium.dtls.*;
 import org.eclipse.leshan.client.californium.LeshanClient;
 import org.eclipse.leshan.client.engine.DefaultRegistrationEngineFactory;
+import org.eclipse.leshan.client.object.Device;
 import org.eclipse.leshan.client.object.Security;
+import org.eclipse.leshan.client.object.Server;
 import org.eclipse.leshan.client.resource.LwM2mObjectEnabler;
 import org.eclipse.leshan.client.resource.ObjectsInitializer;
 import org.eclipse.leshan.client.resource.listener.ObjectsListenerAdapter;
@@ -42,8 +42,8 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 @Component
 public class Lwm2mClient {
+    public static final String MODEL_NUMBER = "IT-TEST-123";
     private static final Logger logger = LoggerFactory.getLogger(Lwm2mClient.class);
-    Lwm2mConfigPoJo lwm2MConfigPoJo = SpringBootUtil.getBean(Lwm2mConfigPoJo.class);
     public final static String[] modelPaths = new String[]{
             "LWM2M_Device-v1_0_3.xml",
             "LWM2M_APN_Connection_Profile-v1_0_1.xml", "LWM2M_Bearer_Selection-v1_0_1.xml",
@@ -56,7 +56,8 @@ public class Lwm2mClient {
     //public final static String[] modelPaths = new String[]{ "3308.xml"};
 
 
-    public void  createLwm2mClient(String sn) throws InvalidModelException, InvalidDDFFileException, IOException {
+    public void createLwm2mClient(String endpoint) throws InvalidModelException, InvalidDDFFileException, IOException {
+        Lwm2mConfigPoJo lwm2MConfigPoJo = SpringBootUtil.getBean(Lwm2mConfigPoJo.class);
         //加载默认对象
         List<ObjectModel> models = ObjectLoader.loadDefault();
         //加载需要添加的对象
@@ -73,31 +74,31 @@ public class Lwm2mClient {
             coapConfig = LeshanClientBuilder.createDefaultNetworkConfig();
             coapConfig.store(configFile);
         }
-
-        //设置实例
-        MySimpleInstanceEnabler mySimpleInstanceEnabler = new MySimpleInstanceEnabler(0);
-        mySimpleInstanceEnabler.setModel(models.get(21));
-        MyDevice myDevice = new MyDevice();
+        //创建 Security(0)对象
+        Security security = Security
+                .noSec("coap://" + lwm2MConfigPoJo.getIp() + ":" + lwm2MConfigPoJo.getPort(), 12345);
+        //创建 Server(1)对象
+        Server server = new Server(12345, 5 * 60);
+        //创建 Device(3)对象
+        Device device = new Device("Eclipse Leshan", MODEL_NUMBER, "12345");
+        //创建 自定义(3308)对象
         MyDevice myObject = new MyDevice();
-        initializer.setInstancesForObject(LwM2mId.SECURITY,
-                Security.noSec("coap://" + lwm2MConfigPoJo.getHost() + ":5683", 12345));
-        ServerLwm2m cv = new ServerLwm2m(12345, 5 * 60, BindingMode.U, false, "cv");
-        initializer.setInstancesForObject(LwM2mId.SERVER, cv);
-        initializer.setInstancesForObject(LwM2mId.DEVICE, myDevice);
+        initializer.setInstancesForObject(LwM2mId.SECURITY, security);
+        initializer.setInstancesForObject(LwM2mId.SERVER, server);
+        initializer.setInstancesForObject(LwM2mId.DEVICE, device);
         initializer.setInstancesForObject(3308, myObject);
-        initializer.setInstancesForObject(LwM2mId.FIRMWARE, mySimpleInstanceEnabler);
-        //其他信息
+        //创建客户端构建器
+        LeshanClientBuilder builder = new LeshanClientBuilder(endpoint);
+        //创建默认注册引擎
         DefaultRegistrationEngineFactory engineFactory = new DefaultRegistrationEngineFactory();
         DefaultEndpointFactory endpointFactory = getEndpointFactory();
         Map<String, String> bsAdditionalAttributes = null;
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(20);
         List<LwM2mObjectEnabler> enablers = initializer.createAll();
-        //创建 client
-        String endpoint = sn;
-        LeshanClientBuilder builder = new LeshanClientBuilder(endpoint);
+
         //设置附加属性
-        Map<String, String> hashMap = new HashMap<String, String>();
-        hashMap.put("a","adc");
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("a", "adc");
         builder.setAdditionalAttributes(hashMap);
         builder.setCoapConfig(coapConfig);
         builder.setObjects(enablers);

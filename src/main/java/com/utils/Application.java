@@ -1,6 +1,7 @@
 package com.utils;
 
 import com.utils.lwm2m.clinet.client.Lwm2mClient;
+import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.mqtt.MqttClientService;
 import com.utils.spring.SpringBootUtil;
 import org.eclipse.leshan.core.model.InvalidDDFFileException;
@@ -68,7 +69,8 @@ public class Application extends SpringBootServletInitializer {
      * lwm2m 客户端，测试方法
      */
     private static void lwm2mClientTest() throws InvalidModelException, InvalidDDFFileException, IOException {
-        new Lwm2mClient().createLwm2mClient("1111111111");
+        Lwm2mConfigPoJo lwm2MConfigPoJo = SpringBootUtil.getBean(Lwm2mConfigPoJo.class);
+        new Lwm2mClient().createLwm2mClient(lwm2MConfigPoJo.getEndpoint());
     }
 
 

@@ -12,24 +12,31 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "lwm2ma")
 public class Lwm2mConfigPoJo {
+    private  String ip;
+    private  int port;
+    private  String endpoint;
 
-    private  String midBegin;
-
-    private  String host;
-
-    public  String getMidBegin() {
-        return midBegin;
+    public String getIp() {
+        return ip;
     }
 
-    public  void setMidBegin(String midBegin) {
-        this.midBegin = midBegin;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public  String getHost() {
-        return host;
+    public int getPort() {
+        return port;
     }
 
-    public  void setHost(String host) {
-        this.host = host;
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 }
