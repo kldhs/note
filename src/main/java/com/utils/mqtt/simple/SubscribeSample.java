@@ -16,10 +16,10 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 public class SubscribeSample {
 
     public static void main(String[] args) throws MqttException {
-        //String HOST = "tcp://110.42.169.107:1883";
+        //String HOST = "tcp://110.42.169.107:8099";
         String HOST = "tcp://81.69.235.71:8089";
         //String HOST = "tcp://1.116.234.137:1883";
-        String TOPIC = "mqtt/up/#";
+        String TOPIC = "test/nosubscribe";
         int qos = 2;
         String clientid = "2";
         try {
@@ -56,9 +56,10 @@ public class SubscribeSample {
             });
             client.connect(options);
             int[] a = {0,1};
-            String[] b = { "mqtt/up/#","aa"};
+            String[] b = { "mqtt/up1111111111/11111111","aa"};
             //client.subscribe(b, a);
             System.out.println("11111111111111111111");
+            Thread.sleep(1000);
             client.subscribe(TOPIC, qos);
             System.out.println("2222222222222222222");
         } catch (Exception e) {

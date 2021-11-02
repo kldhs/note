@@ -74,23 +74,26 @@ public class Lwm2mClient {
             coapConfig = LeshanClientBuilder.createDefaultNetworkConfig();
             coapConfig.store(configFile);
         }
-        //创建 Security(0)对象
+        //创建 Security(0)实例
         Security security = Security
                 .noSec("coap://" + lwm2MConfigPoJo.getIp() + ":" + lwm2MConfigPoJo.getPort(), 12345);
-        //创建 Server(1)对象
+        //创建 Server(1)实例
         Server server = new Server(12345, 5 * 60);
-        //创建 Device(3)对象
+        //创建 Device(3)实例
         Device device = new Device("Eclipse Leshan", MODEL_NUMBER, "12345");
-        //创建 自定义(3308)对象
+        //创建 自定义(3308)实例0
         MyDevice myObject = new MyDevice();
+        //创建 自定义(3308)实例1
+        MyDevice myObject1 = new MyDevice();
         initializer.setInstancesForObject(LwM2mId.SECURITY, security);
         initializer.setInstancesForObject(LwM2mId.SERVER, server);
         initializer.setInstancesForObject(LwM2mId.DEVICE, device);
-        initializer.setInstancesForObject(3308, myObject);
+        initializer.setInstancesForObject(3308, myObject, myObject1);
         //创建客户端构建器
         LeshanClientBuilder builder = new LeshanClientBuilder(endpoint);
         //创建默认注册引擎
         DefaultRegistrationEngineFactory engineFactory = new DefaultRegistrationEngineFactory();
+        //创建端点工厂
         DefaultEndpointFactory endpointFactory = getEndpointFactory();
         Map<String, String> bsAdditionalAttributes = null;
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(20);
@@ -137,26 +140,26 @@ public class Lwm2mClient {
                             @Override
                             public void handshakeStarted(Handshaker handshaker) throws HandshakeException {
                                 if (handshaker instanceof ServerHandshaker) {
-                                    //LOG.info("DTLS Full Handshake initiated by server : STARTED ...");
+                                    logger.info("DTLS Full Handshake initiated by server : STARTED ...");
                                 } else if (handshaker instanceof ResumingServerHandshaker) {
-                                    //LOG.info("DTLS abbreviated Handshake initiated by server : STARTED ...");
+                                    logger.info("DTLS abbreviated Handshake initiated by server : STARTED ...");
                                 } else if (handshaker instanceof ClientHandshaker) {
-                                    //LOG.info("DTLS Full Handshake initiated by client : STARTED ...");
+                                    logger.info("DTLS Full Handshake initiated by client : STARTED ...");
                                 } else if (handshaker instanceof ResumingClientHandshaker) {
-                                    //LOG.info("DTLS abbreviated Handshake initiated by client : STARTED ...");
+                                    logger.info("DTLS abbreviated Handshake initiated by client : STARTED ...");
                                 }
                             }
 
                             @Override
                             public void sessionEstablished(Handshaker handshaker, DTLSSession establishedSession) {
                                 if (handshaker instanceof ServerHandshaker) {
-                                    //LOG.info("DTLS Full Handshake initiated by server : SUCCEED");
+                                    logger.info("DTLS Full Handshake initiated by server : SUCCEED");
                                 } else if (handshaker instanceof ResumingServerHandshaker) {
-                                    //LOG.info("DTLS abbreviated Handshake initiated by server : SUCCEED");
+                                    logger.info("DTLS abbreviated Handshake initiated by server : SUCCEED");
                                 } else if (handshaker instanceof ClientHandshaker) {
-                                    //LOG.info("DTLS Full Handshake initiated by client : SUCCEED");
+                                    logger.info("DTLS Full Handshake initiated by client : SUCCEED");
                                 } else if (handshaker instanceof ResumingClientHandshaker) {
-                                    //LOG.info("DTLS abbreviated Handshake initiated by client : SUCCEED");
+                                    logger.info("DTLS abbreviated Handshake initiated by client : SUCCEED");
                                 }
                             }
 
@@ -173,15 +176,14 @@ public class Lwm2mClient {
                                 } else {
                                     cause = "unknown cause";
                                 }
-
                                 if (handshaker instanceof ServerHandshaker) {
-                                    //LOG.info("DTLS Full Handshake initiated by server : FAILED ({})", cause);
+                                    logger.info("DTLS Full Handshake initiated by server : FAILED ({})", cause);
                                 } else if (handshaker instanceof ResumingServerHandshaker) {
-                                    // LOG.info("DTLS abbreviated Handshake initiated by server : FAILED ({})", cause);
+                                    logger.info("DTLS abbreviated Handshake initiated by server : FAILED ({})", cause);
                                 } else if (handshaker instanceof ClientHandshaker) {
-                                    //LOG.info("DTLS Full Handshake initiated by client : FAILED ({})", cause);
+                                    logger.info("DTLS Full Handshake initiated by client : FAILED ({})", cause);
                                 } else if (handshaker instanceof ResumingClientHandshaker) {
-                                    //LOG.info("DTLS abbreviated Handshake initiated by client : FAILED ({})", cause);
+                                    logger.info("DTLS abbreviated Handshake initiated by client : FAILED ({})", cause);
                                 }
                             }
                         });
