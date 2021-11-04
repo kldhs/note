@@ -10,6 +10,7 @@ import org.eclipse.californium.scandium.DTLSConnector;
 import org.eclipse.californium.scandium.config.DtlsConnectorConfig;
 import org.eclipse.californium.scandium.dtls.*;
 import org.eclipse.leshan.client.californium.LeshanClient;
+import org.eclipse.leshan.client.californium.LeshanClientBuilder;
 import org.eclipse.leshan.client.engine.DefaultRegistrationEngineFactory;
 import org.eclipse.leshan.client.object.Device;
 import org.eclipse.leshan.client.object.Security;
@@ -20,8 +21,6 @@ import org.eclipse.leshan.client.resource.listener.ObjectsListenerAdapter;
 import org.eclipse.leshan.core.LwM2mId;
 import org.eclipse.leshan.core.californium.DefaultEndpointFactory;
 import org.eclipse.leshan.core.model.*;
-import org.eclipse.leshan.core.request.BindingMode;
-import org.eclipse.leshan.client.californium.LeshanClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -135,7 +134,7 @@ public class Lwm2mClient {
             protected Connector createSecuredConnector(DtlsConnectorConfig dtlsConfig) {
                 return new DTLSConnector(dtlsConfig) {
                     @Override
-                    protected void onInitializeHandshaker(Handshaker handshaker) {
+                    public void onInitializeHandshaker(Handshaker handshaker) {
                         handshaker.addSessionListener(new SessionAdapter() {
                             @Override
                             public void handshakeStarted(Handshaker handshaker) throws HandshakeException {
