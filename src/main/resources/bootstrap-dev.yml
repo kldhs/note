@@ -1,3 +1,17 @@
+##nacos配置
+#spring:
+#  application:
+#    name: utils
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 127.0.0.1:8848
+#        group: forUtil
+#        file-extension: yaml
+#        namespace: 0169850e-cd8a-4f78-9e49-a7332d33d9df
+#        shared-dataids: common.yml
+#        refreshable-dataids: common.yml
+
 #日志
 logging:
   level:
@@ -10,7 +24,7 @@ logging:
     druid:
       sql:
         ResultSet: INFO
-  config: classpath:logback-spring.xml
+  config: classpath:logback-local.xml
 
 #线程池
 threadpool:
