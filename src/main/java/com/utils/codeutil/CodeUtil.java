@@ -1,13 +1,15 @@
-package com.utils.formatconversion;
+package com.utils.codeutil;
+
+import java.security.MessageDigest;
 
 /**
  * @author xs
  * @date 2020/08/26 10:36
+ * 格式转换、加密、编码、解码
  */
-public class FormatConversion {
-    static final String HEXES = "0123456789ABCDEF";
-    byte uchCRCHi = (byte) 0xFF;
-    byte uchCRCLo = (byte) 0xFF;
+public class CodeUtil {
+    private static byte uchCRCHi = (byte) 0xFF;
+    private static byte uchCRCLo = (byte) 0xFF;
     private static byte[] auchCRCHi = {0x00, (byte) 0xC1, (byte) 0x81,
             (byte) 0x40, (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41,
             (byte) 0x01, (byte) 0xC0, (byte) 0x80, (byte) 0x41, (byte) 0x00,
@@ -114,45 +116,27 @@ public class FormatConversion {
             (byte) 0x82, (byte) 0x42, (byte) 0x43, (byte) 0x83, (byte) 0x41,
             (byte) 0x81, (byte) 0x80, (byte) 0x40};
 
-    public int value;
 
-    private void update(byte[] puchMsg, int usDataLen) {
+    private static int getCRCInt(byte[] puchMsg, int usDataLen) {
         int uIndex;
+        int value;
         for (int i = 0; i < usDataLen; i++) {
             uIndex = (uchCRCHi ^ puchMsg[i]) & 0xff;
             uchCRCHi = (byte) (uchCRCLo ^ auchCRCHi[uIndex]);
             uchCRCLo = auchCRCLo[uIndex];
         }
         value = ((((int) uchCRCHi) << 8 | (((int) uchCRCLo) & 0xff))) & 0xffff;
-        return;
-    }
-
-    public void reset() {
-        value = 0;
-        uchCRCHi = (byte) 0xff;
-        uchCRCLo = (byte) 0xff;
-    }
-
-    public int getValue() {
         return value;
     }
 
-    public static void main(String[] args) {
-        //byte src0=(byte)1;
-        //byte src1=(byte)1;
-        //uniteBytes(src0,src1);
-        hexString2ByteArray("111");
-        String str = getCRCCode("1111");
-        System.out.println(str);
-    }
-
     /**
-     * 将该两位16进制字符串转换为byte类型的10进制数。
-     * @param src0 高位字符对应的ASCII码10进制数
-     * @param src1 低位字符对应的ASCII码10进制数
+     * 将两个hex对应的ASCII码的10进制数转换为hex对应的真实10进制数。
+     *
+     * @param src0 高位字符对应的ASCII码的10进制数
+     * @param src1 低位字符对应的ASCII码的10进制数
      * @return
      */
-    private static byte hexString2Byte(byte src0, byte src1) {
+    private static byte hexDecimal2Byte(byte src0, byte src1) {
         byte _b0 = Byte.decode("0x" + new String(new byte[]{src0})).byteValue();
         _b0 = (byte) (_b0 << 4);
         byte _b1 = Byte.decode("0x" + new String(new byte[]{src1})).byteValue();
@@ -161,171 +145,47 @@ public class FormatConversion {
     }
 
     /**
-     * 16进制的字符串转换为byte数组。
+     * byte转Hex
+     *
+     * @param b
+     * @return
      */
-    public static byte[] hexString2ByteArray(String src) {
-        src=src.replace("0x","").replace("0X","");
-        if(src.length()%2==1){
-            src = "0"+src;
+    private static String byteToHex(byte b) {
+        String hex = Integer.toHexString(b & 0xFF);
+        if (hex.length() < 2) {
+            hex = "0" + hex;
+        }
+        return hex;
+    }
+
+
+    /////////////////////////////////////////////////////////
+
+
+    /**
+     * hex转换为byte数组。
+     */
+    public static byte[] hex2Bytes(String src) {
+        src = src.replace("0x", "").replace("0X", "");
+        if (src.length() % 2 == 1) {
+            src = "0" + src;
         }
         int len = src.length();
-        byte[] ret = new byte[len / 2 ];
+        byte[] ret = new byte[len / 2];
         byte[] tmp = src.getBytes();
         for (int i = 0; i < len; i += 2) {
-            ret[i / 2] = hexString2Byte(tmp[i], tmp[i + 1]);
-        }
-        return ret;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public static byte[] getSendBuf(String toSend) {
-        byte[] bb = hexString2ByteArray(toSend);
-        FormatConversion formatConversion = new FormatConversion();
-        formatConversion.update(bb, bb.length - 2);
-        int ri = formatConversion.getValue();
-        bb[bb.length - 1] = (byte) (0xff & ri);
-        bb[bb.length - 2] = (byte) ((0xff00 & ri) >> 8);
-        return bb;
-    }
-
-    private static boolean checkBuf(byte[] bb) {
-        FormatConversion formatConversion = new FormatConversion();
-        formatConversion.update(bb, bb.length - 2);
-        int ri = formatConversion.getValue();
-        if (bb[bb.length - 1] == (byte) (ri & 0xff) && bb[bb.length - 2] == (byte) ((0xff00 & ri) >> 8))
-            return true;
-        return false;
-    }
-
-    public static String getBufHexStr(byte[] raw) {
-        if (raw == null) {
-            return null;
-        }
-        final StringBuilder hex = new StringBuilder(2 * raw.length);
-        for (final byte b : raw) {
-            hex.append(HEXES.charAt((b & 0xF0) >> 4)).append(HEXES.charAt((b & 0x0F)));
-        }
-        return hex.toString();
-    }
-
-    /**
-     * 将字符串hex，以每两个字符分割转换为16进制形式
-     *
-     * @param hex String
-     * @return byte[]
-     */
-    public static byte[] HexString2Bytes(String hex) {
-        if (null == hex || 0 == hex.length()) {
-            return null;
-        }
-        byte[] ret = new byte[hex.length() / 2];
-        byte[] tmp = hex.getBytes();
-        for (int i = 0; i < (tmp.length / 2); i++) {
-            ret[i] = hexString2Byte(tmp[i * 2], tmp[i * 2 + 1]);
+            ret[i / 2] = hexDecimal2Byte(tmp[i], tmp[i + 1]);
         }
         return ret;
     }
 
     /**
-     * 将一个16进制的Str转化为Str + CRCCode 返回
-     *
-     * @param msgStr
-     * @return
-     */
-    public static String getCRCMsg(String msgStr) {
-        byte[] sbuf = getSendBuf(msgStr);
-        return getBufHexStr(sbuf);
-    }
-
-    /**
-     * 将一个16进制的Str转化为CRCCode返回
-     *
-     * @param msgStr
-     * @return
-     */
-    public static String getCRCCode(String msgStr) {
-        byte[] bb = {00, 00};
-        byte[] sbuf = getSendBuf(msgStr);
-        bb[0] = sbuf[sbuf.length - 2];
-        bb[1] = sbuf[sbuf.length - 1];
-        return getBufHexStr(bb);
-    }
-
-    /**
-     * byte数组转字符串
-     */
-    public static String Bytes2HexString(byte[] b) {
-        String ret = "";
-        for (int i = 0; i < b.length; i++) {
-            String hex = Integer.toHexString(b[i] & 0xFF);
-            if (hex.length() == 1) {
-                hex = '0' + hex;
-            }
-            ret += " 0x" + hex.toUpperCase();
-        }
-        return ret;
-    }
-
-    public static byte[] getcmdStr(String cmdStr) {
-        return HexString2Bytes(getCRCMsg(cmdStr));
-    }
-
-    /**
-     * unicode转字符串
-     *
-     * @param unicode
-     * @return
-     */
-    public static String unicodeToString(String unicode) {
-        StringBuffer sb = new StringBuffer();
-        String[] hex = unicode.split("\\\\u");
-        for (int i = 1; i < hex.length; i++) {
-            int index = Integer.parseInt(hex[i], 16);
-            sb.append((char) index);
-        }
-        return sb.toString();
-    }
-
-    /**
-     * bytes数组转Hex
+     * bytes数组转hex
      *
      * @param bytes
      * @return
      */
-    public static String bytesToHex(byte[] bytes) {
+    public static String bytes2Hex(byte[] bytes) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < bytes.length; i++) {
             String hex = Integer.toHexString(bytes[i] & 0xFF);
@@ -338,73 +198,35 @@ public class FormatConversion {
     }
 
     /**
-     * byte转Hex
+     * 获取hex的CRCCode（CRC-16/MODBUS）
      *
-     * @param b
+     * @param toSend
      * @return
      */
-    public static String byteToHex(byte b) {
-        String hex = Integer.toHexString(b & 0xFF);
-        if (hex.length() < 2) {
-            hex = "0" + hex;
-        }
-        return hex;
+    public static String getHexCRCCode(String toSend) {
+        byte[] aa = hex2Bytes(toSend);
+        byte[] bb = new byte[]{00, 00};
+        int ri =getCRCInt(aa, aa.length);
+        bb[0] = (byte) (0xff & ri);
+        bb[1] = (byte) ((0xff00 & ri) >> 8);
+        return bytes2Hex(bb);
     }
 
-    /**
-     * 发送结果检验
-     *
-     * @param cmdBs
-     * @param resultBs
-     * @return
-     */
-    public static boolean checkOperResult(byte[] cmdBs, byte[] resultBs) {
-        if (cmdBs == null || resultBs == null || cmdBs.length == 0 || resultBs.length == 0) {
-            return false;
-        }
-        String cmdStr = byteToHex(cmdBs[2]) + byteToHex(cmdBs[3]);
-        String retStr = byteToHex(resultBs[2]) + byteToHex(resultBs[3]);
-        if (!(cmdStr.equals(retStr))) {
-            return false;
-        }
-        String errorRet = byteToHex(resultBs[1]) + byteToHex(resultBs[2]) + byteToHex(resultBs[3]);
-        if (errorRet.equals("8fff00")) {
-            return false;
-        } else {
-            if (Integer.parseInt(byteToHex(resultBs[7]) + byteToHex(resultBs[8])) == 0000) {
-                return true;
-            } else {
-                return false;
-            }
+    public static String hexMD5(String value) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.reset();
+            messageDigest.update(value.getBytes("utf-8"));
+            byte[] digest = messageDigest.digest();
+            return bytes2Hex(digest);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 
-    /**
-     * 数字转成十六进制字符串，字母大写
-     */
-    public static String toHexString(int num) {
-        return Integer.toHexString(num).toUpperCase();
-    }
-
-    /**
-     * 补零
-     *
-     * @param str
-     * @param strLength
-     * @return
-     */
-    public static String addZeroForNum(String str, int strLength) {
-        int strLen = str.length();
-        if (strLen < strLength) {
-            while (strLen < strLength) {
-                StringBuffer sb = new StringBuffer();
-                // 左补0
-                sb.append("0").append(str);
-                str = sb.toString();
-                strLen = str.length();
-            }
-        }
-        return str;
+    public static void main(String[] args) {
+        String hexCRCCode = hexMD5("12345678");
+        System.out.println("str");
     }
 
 

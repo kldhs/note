@@ -1,7 +1,5 @@
 package com.utils.socket.client;
 
-import com.utils.formatconversion.FormatConversion;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;

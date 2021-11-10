@@ -1,5 +1,6 @@
 package com.utils;
 
+import com.utils.aop.UserAction;
 import com.utils.lwm2m.clinet.client.Lwm2mClient;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.mqtt.MqttClientService;
@@ -9,6 +10,7 @@ import org.eclipse.leshan.core.model.InvalidModelException;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
@@ -58,7 +60,7 @@ public class Test {
     /**
      * lslf4j 日志输出，测试方法
      */
-    public static void lslf4jTest() {
+    public static void slf4jTest() {
         logger.trace("1111111111111111111111111");
         logger.debug("2222222222222222222222222");
         logger.info("3333333333333333333333333");
@@ -74,6 +76,15 @@ public class Test {
         logger2.info("++++++++++++++3333333333333333333333333");
         logger2.warn("++++++++++++++44444444444444444444444444");
         logger2.error("++++++++++++++55555555555555555555555555");
+
+    }
+
+    /**
+     * lslf4j 日志输出，测试方法
+     */
+    public static void aopTest() {
+        UserAction bean = SpringBootUtil.getBean(UserAction.class);
+        bean.login();
 
     }
 }
