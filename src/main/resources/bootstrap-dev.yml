@@ -13,17 +13,16 @@
 #        refreshable-dataids: common.yml
 
 #日志
+
 logging:
-  level:
-    org:
-      springframework:
-        web: INFO
-    com:
-      example:
-        dao: INFO
-    druid:
-      sql:
-        ResultSet: INFO
+#  level:
+#    com: trace
+#    org:
+#      springframework:
+#        web: INFO
+#    druid:
+#      sql:
+#        ResultSet: INFO
   config: classpath:logback-local.xml
 
 #线程池

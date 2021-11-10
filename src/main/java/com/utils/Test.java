@@ -19,6 +19,8 @@ import java.io.IOException;
  */
 public class Test {
     private static Logger logger = LoggerFactory.getLogger(Test.class);
+    private static Logger logger1 = LoggerFactory.getLogger("login");
+    private static Logger logger2 = LoggerFactory.getLogger("register");
     /**
      * mqtt 测试方法
      */
@@ -57,8 +59,21 @@ public class Test {
      * lslf4j 日志输出，测试方法
      */
     public static void lslf4jTest() {
-        logger.error("1111111111111111111111111");
-        logger.info("1111111111111111111111111");
-        logger.info("1111111111111111111111111");
+        logger.trace("1111111111111111111111111");
+        logger.debug("2222222222222222222222222");
+        logger.info("3333333333333333333333333");
+        logger.warn("44444444444444444444444444");
+        logger.error("55555555555555555555555555");
+        logger1.trace("--------------1111111111111111111111111");
+        logger1.debug("--------------2222222222222222222222222");
+        logger1.info("--------------3333333333333333333333333");
+        logger1.warn("--------------44444444444444444444444444");
+        logger1.error("--------------55555555555555555555555555");
+        logger2.trace("++++++++++++++1111111111111111111111111");
+        logger2.debug("++++++++++++++2222222222222222222222222");
+        logger2.info("++++++++++++++3333333333333333333333333");
+        logger2.warn("++++++++++++++44444444444444444444444444");
+        logger2.error("++++++++++++++55555555555555555555555555");
+
     }
 }
