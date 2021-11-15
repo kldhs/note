@@ -1,5 +1,9 @@
 package com.utils.jaxbutil;
 
+import com.utils.codeutil.CodeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -16,7 +20,7 @@ import java.io.StringReader;
  * xml文件工具类，xml格式字符串转对象，xml文件转对象，对象转xml文件，对象转xml字符串
  */
 public class JaxbUtil {
-
+    private static Logger logger = LoggerFactory.getLogger(JaxbUtil.class);
     /**
      * 将Java对象转换为Xml格式的字符串输出
      * @param obj
@@ -86,7 +90,7 @@ public class JaxbUtil {
             jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "GBK");
             //写入到文件中
             jaxbMarshaller.marshal(object, file);
-            System.out.println("xml已写入到文件" + filePath);
+            logger.info("xml已写入到文件" + filePath);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

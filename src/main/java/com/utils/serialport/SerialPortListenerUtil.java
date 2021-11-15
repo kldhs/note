@@ -1,6 +1,9 @@
 package com.utils.serialport;
 
+import com.utils.aop.LogIntercept;
 import gnu.io.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 监听的方式从串口读取数据
  */
 public class SerialPortListenerUtil extends Thread implements SerialPortEventListener {
-
+    private static Logger logger = LoggerFactory.getLogger(SerialPortListenerUtil.class);
     /**
      * 串口名称
      */
@@ -114,7 +117,7 @@ public class SerialPortListenerUtil extends Thread implements SerialPortEventLis
         while (true) {
             if (blockingQueue.size() > 0) {
                 try {
-                    System.out.println("接收到的数据为：" + blockingQueue.take());
+                    logger.info("接收到的数据为：" + blockingQueue.take());
                     break;
                 } catch (InterruptedException e) {
                     e.printStackTrace();

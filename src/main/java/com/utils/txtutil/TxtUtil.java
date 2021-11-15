@@ -1,5 +1,9 @@
 package com.utils.txtutil;
 
+import com.utils.mqtt.simple.SubscribeSample;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +13,7 @@ import java.util.List;
  * @data 2018/8/29 10:01
  */
 public class TxtUtil {
-
+    private static Logger logger = LoggerFactory.getLogger(TxtUtil.class);
     /**
      * 读取Txt文件得到List<String>
      *
@@ -27,7 +31,7 @@ public class TxtUtil {
                 String info = null;
                 while ((info = br.readLine()) != null) {
                     list.add(info);
-                    System.out.println(info);
+                    logger.info(info);
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

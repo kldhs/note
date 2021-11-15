@@ -1,6 +1,9 @@
 package com.utils.socket.server;
 
+import com.utils.excelutil.ExcelUtil;
 import com.utils.logutil.LogUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -10,6 +13,7 @@ import java.net.Socket;
 
 
 class SocketServerThread extends Thread {
+    private static Logger logger = LoggerFactory.getLogger(SocketServerThread.class);
     private Socket socket;
     DataInputStream in = null;
     OutputStream out = null;
@@ -37,9 +41,9 @@ class SocketServerThread extends Thread {
                     out.flush();
                     LogUtil.socketInfo("--------Socket服务端--------" + "ip为:" + InetAddress.getLocalHost().getHostAddress() + " 端口为:" + localPort + "的服务端 向ip为:" + InetAddress.getLocalHost().getHostAddress() + " 端口为:" + port + "的客户端返回的数据为:" + "\r\n" + "Hello 我是服务端，已接收到你的数据为:"+messageFromClient);
                 } else if(readLength==0){
-                    System.out.println("readLength==0");
+                    logger.info("readLength==0");
                 }else if(readLength<0){
-                    System.out.println("readLength<0");
+                    logger.info("readLength<0");
                 }
             }
     } catch( Exception e){

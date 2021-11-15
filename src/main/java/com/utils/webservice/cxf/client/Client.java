@@ -7,6 +7,6 @@
 //        ClientProxyFactoryBean clientFactory = new ClientProxyFactoryBean();
 //        clientFactory.setAddress("http://localhost:9000/Hello");
 //        HelloWord hw = clientFactory.create(HelloWord.class);
-//        System.out.println(hw.sayHi("yaokj"));
+//        logger.info(hw.sayHi("yaokj"));
 //    }
 //}

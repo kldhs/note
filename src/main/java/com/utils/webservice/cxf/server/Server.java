@@ -14,9 +14,9 @@
 //
 //    public static void main(String[] args) throws Exception{
 //        new Server();
-//        System.out.println("server start ...");
+//        logger.info("server start ...");
 //        //Thread.sleep(10*1000);
-//        //System.out.println("server exit ...");
+//        //logger.info("server exit ...");
 //        //System.exit(0);
 //    }
 //}

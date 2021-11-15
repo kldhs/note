@@ -34,7 +34,7 @@ threadpool:
   threadNamePrefix: "hiahia"
 
 mqtt:
-  ip: "1.116.234.137"
+  ip: "1.116.213.98"
   port: 1883
   cleanSession: true
   userName: "12_1111"
@@ -43,7 +43,7 @@ mqtt:
   keepAliveInterval: 20
 
 lwm2ma:
-  ip: "1.116.234.137"
+  ip: "58.215.186.84"
   port: 5683
   #用于识别客户端，类似clientid
   endpoint: "1111"

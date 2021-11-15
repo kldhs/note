@@ -1,5 +1,6 @@
 package com.utils.threadpool.executorsandspring;
 
+import com.utils.Test;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +26,21 @@ public class AsyncServiceImpl implements AsyncService {
      *需配合@EnableAsync（允许异步执行）使用
      */
     public void executeAsync() {
-        //synchronized ("aa") {
-        i++;
-        System.err.println(i + " start executeAsync");
-        try {
-            Thread.sleep(3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.err.println(i + " end executeAsync");
+        ////synchronized ("aa") {
+        //i++;
+        //System.err.println(i + " start executeAsync");
+        //try {
+        //    Thread.sleep(3000);
+        //} catch (Exception e) {
+        //    e.printStackTrace();
         //}
+        //System.err.println(i + " end executeAsync");
+        ////}
+
+        for (int i = 0; i < 600; i++) {
+            Test.mqttTest();
+
+        }
+
     }
 }

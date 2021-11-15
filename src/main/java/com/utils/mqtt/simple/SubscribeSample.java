@@ -1,5 +1,6 @@
 package com.utils.mqtt.simple;
 
+import com.utils.Test;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -7,6 +8,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -14,7 +17,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  * @throws MqttException
  */
 public class SubscribeSample {
-
+    private static Logger logger = LoggerFactory.getLogger(SubscribeSample.class);
     public static void main(String[] args) throws MqttException {
         //String HOST = "tcp://110.42.169.107:8099";
         String HOST = "tcp://81.69.235.71:8089";
@@ -39,18 +42,18 @@ public class SubscribeSample {
             client.setCallback(new MqttCallback() {
 
                 public void connectionLost(Throwable cause) {
-                    System.out.println("connectionLost");
+                    logger.info("connectionLost");
                 }
 
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
-                    System.out.println("topic:" + topic);
-                    System.out.println("Qos:" + message.getQos());
-                    System.out.println("message content:" + new String(message.getPayload()));
+                    logger.info("topic:" + topic);
+                    logger.info("Qos:" + message.getQos());
+                    logger.info("message content:" + new String(message.getPayload()));
 
                 }
 
                 public void deliveryComplete(IMqttDeliveryToken token) {
-                    System.out.println("deliveryComplete---------" + token.isComplete());
+                    logger.info("deliveryComplete---------" + token.isComplete());
                 }
 
             });
@@ -58,10 +61,10 @@ public class SubscribeSample {
             int[] a = {0,1};
             String[] b = { "mqtt/up1111111111/11111111","aa"};
             //client.subscribe(b, a);
-            System.out.println("11111111111111111111");
+            logger.info("11111111111111111111");
             Thread.sleep(1000);
             client.subscribe(TOPIC, qos);
-            System.out.println("2222222222222222222");
+            logger.info("2222222222222222222");
         } catch (Exception e) {
             e.printStackTrace();
         }

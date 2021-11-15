@@ -76,7 +76,7 @@ public class ConfigsPoJo {
     //public String aaa(String[] args) {
         //System.err.println("hiahia: " + new Date());
         //ConfigsPoJo aa = SpringBootUtil.getBean(ConfigsPoJo.class);
-        //System.out.println("111111111111111");
+        //logger.info("111111111111111");
         //return null;
     //}
 }

@@ -1,9 +1,13 @@
 package com.utils.excelutil;
 
+import com.utils.aop.LogIntercept;
 import com.utils.logutil.LogUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
@@ -18,7 +22,7 @@ import java.util.List;
  *Excel工具类，可用于读取Excel文件，生成Excel文件，用户界面选择文件路径
  */
 public class ExcelUtil {
-
+    private static Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
     /**
      * 弹出窗口，用于用户选择文件夹或文件，输出该文件、文件夹路径。
      * @return
@@ -157,7 +161,7 @@ public class ExcelUtil {
                     sheetData.add(rowData);
                 }
             } else {
-                System.out.println("找不到文件名为："+excelFileName+"的文件。");
+                logger.info("找不到文件名为："+excelFileName+"的文件。");
             }
         } catch (Exception e) {
             e.printStackTrace();

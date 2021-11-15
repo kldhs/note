@@ -1,10 +1,13 @@
 package com.utils.mqtt.simple;
 
+import com.utils.jaxbutil.JaxbUtil;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 消息发布
@@ -13,6 +16,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  * 2020-05-08
  */
 public class PublishSample {
+    private static Logger logger = LoggerFactory.getLogger(PublishSample.class);
     public static void main(String[] args) {
 
         String topic = "mqtt/test";
@@ -43,11 +47,11 @@ public class PublishSample {
             // 关闭客户端
             sampleClient.close();
         } catch (MqttException me) {
-            System.out.println("reason " + me.getReasonCode());
-            System.out.println("msg " + me.getMessage());
-            System.out.println("loc " + me.getLocalizedMessage());
-            System.out.println("cause " + me.getCause());
-            System.out.println("excep " + me);
+            logger.info("reason " + me.getReasonCode());
+            logger.info("msg " + me.getMessage());
+            logger.info("loc " + me.getLocalizedMessage());
+            logger.info("cause " + me.getCause());
+            logger.info("excep " + me);
             me.printStackTrace();
         }
     }

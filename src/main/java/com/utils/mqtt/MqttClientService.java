@@ -1,8 +1,10 @@
 package com.utils.mqtt;
 
-import com.sun.deploy.util.StringUtils;
+import com.utils.redis.RedisThread;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
  */
 @Configuration
 public class MqttClientService {
+    private static Logger logger= LoggerFactory.getLogger(MqttClientService.class);
     @Autowired
     MqttConfigPoJo mqttConfigPoJo;
 
@@ -37,8 +40,8 @@ public class MqttClientService {
             // false:不清空session,服务器会保留客户端的连接记录，可以接收离线期的消息
             // true:清空session,服务器不会保留客户端的连接记录，新的连接会创建新Session，不能接收离线期的消息
             mqttConnectOptions.setCleanSession(this.mqttConfigPoJo.isCleanSession());
-            mqttConnectOptions.setUserName(this.mqttConfigPoJo.getUserName());
-            mqttConnectOptions.setPassword(this.mqttConfigPoJo.getPassWord().toCharArray());
+            //mqttConnectOptions.setUserName(this.mqttConfigPoJo.getUserName());
+            //mqttConnectOptions.setPassword(this.mqttConfigPoJo.getPassWord().toCharArray());
             //设置连接超时时间
             mqttConnectOptions.setConnectionTimeout(this.mqttConfigPoJo.getConnectionTimeout());
             // 设置会话心跳时间，服务器会每隔一段时间向客户端发送个消息判断客户
@@ -99,7 +102,7 @@ public class MqttClientService {
         mqttMessage.setPayload(message.getBytes());
         MqttDeliveryToken token = mqttTopic.publish(mqttMessage);
         token.waitForCompletion();
-        System.out.println("publish message -> This clientid : " + mqttClient.getClientId() + " , topic : " + topic
+        logger.info("publish message -> This clientid : " + mqttClient.getClientId() + " , topic : " + topic
                 + " , retained : " + retained + " , qos : " + qos + " , message : " + message);
     }
 
@@ -114,7 +117,7 @@ public class MqttClientService {
         try {
             MqttClient mqttClient = getMqttClient(clientid, willMessageTopic);
             mqttClient.subscribe(topic, qos);
-            System.out.println("subscribe message -> This clientid : " + clientid
+            logger.info("subscribe message -> This clientid : " + clientid
                     + " , topic : "+ Arrays.asList(topic).stream().map(String::valueOf).collect(Collectors.joining("、"))
                     + " , qos : " + Arrays.stream(qos).boxed().map(i -> i.toString()) .collect(Collectors.joining("、")));
         } catch (Exception e) {

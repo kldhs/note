@@ -9,7 +9,7 @@
 <configuration scan="true" scanPeriod="10 seconds" debug="false">
     <contextName>logback-local</contextName>
     <!--自定义的属性-->
-    <property name="logPath" value="/data/logs/lwm2m/"/>
+    <property name="logPath" value="/data/logs/util/"/>
     <!--日志颜色渲染-->
     <conversionRule conversionWord="clr"
                     converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
@@ -58,7 +58,7 @@
         <!--日志滚动策略,大小、日期-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件名称-->
-            <fileNamePattern>${logPath}/iot_lwm2m_%d{yyyyMMdd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logPath}/util_%d{yyyyMMdd}.%i.log</fileNamePattern>
             <!--大小，名称需要加上 %i -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>300MB</maxFileSize>

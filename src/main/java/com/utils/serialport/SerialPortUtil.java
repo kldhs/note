@@ -1,9 +1,12 @@
 package com.utils.serialport;
 
+import com.utils.mqtt.MqttClientCallback;
 import gnu.io.CommPortIdentifier;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +18,7 @@ import java.io.OutputStream;
  * 常规方式串口读写数据
  */
 public class SerialPortUtil {
-
+    private static Logger logger = LoggerFactory.getLogger(SerialPortUtil.class);
     /**
      * 串口名称
      */
@@ -119,7 +122,7 @@ public class SerialPortUtil {
                     inputStream.close();
                     inputStream = null;
                 } catch (IOException e) {
-                    System.out.println("关闭输入流时发生IO异常");
+                    logger.info("关闭输入流时发生IO异常");
                 }
             }
             if (outputStream != null) {
@@ -127,7 +130,7 @@ public class SerialPortUtil {
                     outputStream.close();
                     outputStream = null;
                 } catch (IOException e) {
-                    System.out.println("关闭输出流时发生IO异常");
+                    logger.info("关闭输出流时发生IO异常");
                 }
             }
             serialPort.close();
@@ -140,7 +143,7 @@ public class SerialPortUtil {
         serialPortUtil.init();
         serialPortUtil.openSerialPort();
         serialPortUtil.writeData("1234422");
-        System.out.println(serialPortUtil.readData());
+        logger.info(serialPortUtil.readData());
         serialPortUtil.closeSerialPort();
     }
 }

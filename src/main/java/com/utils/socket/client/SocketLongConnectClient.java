@@ -1,5 +1,9 @@
 package com.utils.socket.client;
 
+import com.utils.serialport.SerialPortUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -11,6 +15,7 @@ import java.util.HashMap;
  * @
  */
 public class SocketLongConnectClient {
+    private static Logger logger = LoggerFactory.getLogger(SocketLongConnectClient.class);
     /**
      * SocketLongConnectClient对象Map，key
      */
@@ -132,7 +137,7 @@ public class SocketLongConnectClient {
     public static void main(String[] args) {
         while (true) {
             String aa = SocketLongConnectClient.sendMessageBySocketLongConnectClient("127.0.0.1", 1111, "");
-            System.out.println(aa);
+            logger.info(aa);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

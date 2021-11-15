@@ -1,5 +1,9 @@
 package com.utils.codeutil;
 
+import com.utils.aop.UserAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.MessageDigest;
 
 /**
@@ -8,6 +12,7 @@ import java.security.MessageDigest;
  * 格式转换、加密、编码、解码
  */
 public class CodeUtil {
+    private static Logger logger = LoggerFactory.getLogger(CodeUtil.class);
     private static byte uchCRCHi = (byte) 0xFF;
     private static byte uchCRCLo = (byte) 0xFF;
     private static byte[] auchCRCHi = {0x00, (byte) 0xC1, (byte) 0x81,
@@ -226,7 +231,7 @@ public class CodeUtil {
 
     public static void main(String[] args) {
         String hexCRCCode = hexMD5("12345678");
-        System.out.println("str");
+        logger.info("str");
     }
 
 

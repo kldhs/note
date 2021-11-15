@@ -5,14 +5,17 @@ package com.utils.aop;
  * @date 2021/11/10 11:02
  */
 
+import com.utils.txtutil.TxtUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class LogIntercept{
-
+    private static Logger logger = LoggerFactory.getLogger(LogIntercept.class);
     @Pointcut("execution(public * com.utils.aop.*Action.*(..))")
     public void actionLog(){}
 
@@ -37,7 +40,7 @@ public class LogIntercept{
 
 
     private void printLog(String str){
-        System.out.println(str);
+        logger.info(str);
     }
 
 }

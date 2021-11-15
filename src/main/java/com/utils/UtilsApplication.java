@@ -30,8 +30,8 @@ public class UtilsApplication extends SpringBootServletInitializer {
             IOException {
         ConfigurableApplicationContext context = SpringApplication.run(UtilsApplication.class, args);
         System.err.println(context.getEnvironment());
-
-        Test.aopTest();
+        Test.asyncTest();
+        //Test.lwm2mClientTest();
     }
 
 
