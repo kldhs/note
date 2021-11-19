@@ -25,6 +25,7 @@ public class Test {
     private static Logger logger = LoggerFactory.getLogger(Test.class);
     private static Logger logger1 = LoggerFactory.getLogger("login");
     private static Logger logger2 = LoggerFactory.getLogger("register");
+
     /**
      * mqtt 测试方法
      */
@@ -47,7 +48,7 @@ public class Test {
         //bean.publish("asdfghjklasdfghjkl", "asdfghjklasdfghjkl", "root/topic/testDx1", 2, true);
         int[] Qos = {2};
         String[] topic1 = {"root/topic/testDx1"};
-        String a = UUID.randomUUID().toString().replaceAll("-","");
+        String a = UUID.randomUUID().toString().replaceAll("-", "");
         bean.subscribe(null, a, topic1, Qos);
     }
 
@@ -63,12 +64,12 @@ public class Test {
      * 异步线程池，测试方法
      */
     public static void asyncTest() {
-        for (int i = 0; i <=100; i++) {
+        for (int i = 0; i <= 100; i++) {
             AsyncService asyncService = (AsyncService) SpringBootUtil.getBean(AsyncService.class);
-            System.err.println(i+"----start submit");
+            System.err.println(i + "----start submit");
             //调用service层的任务
             asyncService.executeAsync();
-            System.err.println(i+"----end submit");
+            System.err.println(i + "----end submit");
         }
     }
 

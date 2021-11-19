@@ -100,7 +100,7 @@ public class Lwm2mClient {
 
         //设置附加属性
         Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("a", "adc");
+        hashMap.put("aaaaaaaaaaaaaaaa", "adccccccccccccccccccccc");
         builder.setAdditionalAttributes(hashMap);
         builder.setCoapConfig(coapConfig);
         builder.setObjects(enablers);

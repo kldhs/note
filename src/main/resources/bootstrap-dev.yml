@@ -43,7 +43,8 @@ mqtt:
   keepAliveInterval: 20
 
 lwm2ma:
-  ip: "58.215.186.84"
+  ip: "127.0.0.1"
+#  ip: "110.42.169.107"
   port: 5683
   #用于识别客户端，类似clientid
   endpoint: "1111"
