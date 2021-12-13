@@ -13,9 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @company adups
- * @author wangxiaojing
- * @date 2017年10月16日
+ * kafka消息生成者配置
  **/
 @Configuration
 @ConfigurationProperties(prefix = "spring.kafka")

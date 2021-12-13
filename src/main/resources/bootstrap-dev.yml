@@ -1,50 +1,12 @@
-##nacos配置
-#spring:
-#  application:
-#    name: utils
-#  cloud:
-#    nacos:
-#      config:
-#        server-addr: 127.0.0.1:8848
-#        group: forUtil
-#        file-extension: yaml
-#        namespace: 0169850e-cd8a-4f78-9e49-a7332d33d9df
-#        shared-dataids: common.yml
-#        refreshable-dataids: common.yml
-
-#日志
-
-logging:
-#  level:
-#    com: trace
-#    org:
-#      springframework:
-#        web: INFO
-#    druid:
-#      sql:
-#        ResultSet: INFO
-  config: classpath:logback-local.xml
-
-#线程池
-threadpool:
-  corePoolSize: 10
-  maxPoolSize: 30
-  queueCapacity: 8
-  keepAlive: 60
-  threadNamePrefix: "hiahia"
-
-mqtt:
-  ip: "1.116.213.98"
-  port: 1883
-  cleanSession: true
-  userName: "12_1111"
-  passWord: "123456"
-  connectionTimeout: 1000
-  keepAliveInterval: 20
-
-lwm2ma:
-  ip: "127.0.0.1"
-#  ip: "110.42.169.107"
-  port: 5683
-  #用于识别客户端，类似clientid
-  endpoint: "1111"
+spring:
+  application:
+    name: iot-udp-api
+  cloud:
+    nacos:
+      config:
+        server-addr: 1.116.234.137:8848
+        group: local
+        file-extension: yaml
+        namespace: 17c2c6fb-cc58-4ee6-9fa5-e465987a3c33
+        shared-dataids: common.yml
+        refreshable-dataids: common.yml

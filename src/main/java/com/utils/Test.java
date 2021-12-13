@@ -105,7 +105,6 @@ public class Test {
     public static void aopTest() {
         UserAction bean = SpringBootUtil.getBean(UserAction.class);
         bean.login();
-
     }
 
     /**

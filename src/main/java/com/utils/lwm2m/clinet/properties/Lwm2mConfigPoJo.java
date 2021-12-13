@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @create: 2020-09-14 14:51
  */
 @Component
-@ConfigurationProperties(prefix = "lwm2ma")
+@ConfigurationProperties(prefix = "lwm2m")
 public class Lwm2mConfigPoJo {
     private  String ip;
     private  int port;

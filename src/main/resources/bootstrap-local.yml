@@ -1,12 +1,61 @@
 spring:
-  application:
-    name: iot-udp-api
-  cloud:
-    nacos:
-      config:
-        server-addr: 1.116.234.137:8848
-        group: local
-        file-extension: yaml
-        namespace: 17c2c6fb-cc58-4ee6-9fa5-e465987a3c33
-        shared-dataids: common.yml
-        refreshable-dataids: common.yml
+  #kafka消费者配置
+  kafka:
+    consumer:
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 1000
+    producer:
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    listener:
+      concurrency: 10
+      ack-mode: manual
+    bootstrap-servers: 127.0.0.1:9092
+
+
+server:
+  port:
+    8091
+
+#kafka消息生成者配置
+kafka:
+  value: "org.apache.kafka.common.serialization.StringSerializer"
+  key: "org.apache.kafka.common.serialization.StringSerializer"
+  size: "16384"
+  retries: "0"
+  servers: "127.0.0.1:9092"
+  acks: "1"
+  buffer: "33554432"
+
+#日志
+logging:
+  config: classpath:logback-local.xml
+
+#线程池
+threadpool:
+  corePoolSize: 10
+  maxPoolSize: 30
+  queueCapacity: 8
+  keepAlive: 60
+  threadNamePrefix: "hiahia"
+
+#mqtt
+mqtt:
+  ip: "1.116.213.98"
+  port: 1883
+  cleanSession: true
+  userName: "12_1111"
+  passWord: "123456"
+  connectionTimeout: 1000
+  keepAliveInterval: 20
+
+#lwm2m
+lwm2m:
+  ip: "127.0.0.1"
+  port: 5683
+  #用于识别客户端，类似clientid
+  endpoint: "1111"
