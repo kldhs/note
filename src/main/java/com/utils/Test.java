@@ -1,5 +1,6 @@
 package com.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.utils.aop.UserAction;
 import com.utils.lwm2m.clinet.client.Lwm2mClient;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
@@ -12,7 +13,9 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -25,7 +28,8 @@ public class Test {
     private static Logger logger = LoggerFactory.getLogger(Test.class);
     private static Logger logger1 = LoggerFactory.getLogger("login");
     private static Logger logger2 = LoggerFactory.getLogger("register");
-
+    @Resource
+    private KafkaTemplate<String, Object> kafkaTemplate;
     /**
      * mqtt 测试方法
      */
@@ -103,4 +107,13 @@ public class Test {
         bean.login();
 
     }
+
+    /**
+     * kafka 测试方法
+     */
+    public static void kafkaTest() {
+        KafkaTemplate<String, Object> kafkaTemplate = SpringBootUtil.getBean(KafkaTemplate.class);
+        kafkaTemplate.send("pushDetail_update", "pushDetail_update", "qwsdfgasdf");
+    }
+
 }
