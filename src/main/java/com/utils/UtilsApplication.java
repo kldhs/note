@@ -26,8 +26,7 @@ public class UtilsApplication extends SpringBootServletInitializer {
         return application.sources(UtilsApplication.class);
     }
 
-    public static void main(String[] args) throws MqttException, InvalidModelException, InvalidDDFFileException,
-            IOException {
+    public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(UtilsApplication.class, args);
         System.err.println(context.getEnvironment());
         //Test.asyncTest();
