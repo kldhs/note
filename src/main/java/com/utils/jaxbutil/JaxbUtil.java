@@ -1,6 +1,5 @@
 package com.utils.jaxbutil;
 
-import com.utils.codeutil.CodeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

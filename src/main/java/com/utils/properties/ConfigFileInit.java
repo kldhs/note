@@ -1,7 +1,5 @@
 package com.utils.properties;
 
-import com.utils.logutil.LogUtil;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
