@@ -1,6 +1,5 @@
 package com.utils.serialport;
 
-import com.utils.mqtt.MqttClientCallback;
 import gnu.io.CommPortIdentifier;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;

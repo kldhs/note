@@ -8,6 +8,7 @@
 
     <modules>
         <module>utils</module>
+        <module>framework</module>
     </modules>
 
     <parent>
@@ -257,9 +258,8 @@
                     </resources>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
-
-
 
 </project>

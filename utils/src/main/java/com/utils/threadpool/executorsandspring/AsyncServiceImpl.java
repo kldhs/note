@@ -38,7 +38,6 @@ public class AsyncServiceImpl implements AsyncService {
         ////}
 
         for (int i = 0; i < 600; i++) {
-            Test.mqttTest();
 
         }
 

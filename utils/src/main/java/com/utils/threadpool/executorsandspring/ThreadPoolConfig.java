@@ -1,6 +1,5 @@
 package com.utils.threadpool.executorsandspring;
 
-import com.utils.mqtt.MqttConfigPoJo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +19,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig {
     @Autowired
     ThreadPoolConfigPoJo threadPoolConfigPoJo;
-    @Autowired
-    MqttConfigPoJo mqttConfigPoJo;
 
     @Bean("asyncServiceExecutor")
     public Executor asyncServiceExecutor() {
