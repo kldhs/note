@@ -1,6 +1,5 @@
 package com.utils.mqtt;
 
-import com.utils.redis.RedisThread;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.slf4j.Logger;

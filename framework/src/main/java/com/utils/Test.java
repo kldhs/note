@@ -1,20 +1,20 @@
 package com.utils;
 
-import com.utils.aop.UserAction;
 import com.utils.lwm2m.clinet.client.Lwm2mClient;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.mqtt.MqttClientService;
 import com.utils.spring.SpringBootUtil;
-import com.utils.threadpool.executorsandspring.AsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.leshan.core.model.InvalidDDFFileException;
 import org.eclipse.leshan.core.model.InvalidModelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -29,6 +29,9 @@ public class Test {
     private static Logger logger2 = LoggerFactory.getLogger("register");
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
+    @Resource
+    RedisTemplate redisTemplate;
+
     /**
      * mqtt 测试方法
      */
@@ -64,46 +67,15 @@ public class Test {
     }
 
     /**
-     * 异步线程池，测试方法
-     */
-    public static void asyncTest() {
-        for (int i = 0; i <= 100; i++) {
-            AsyncService asyncService = (AsyncService) SpringBootUtil.getBean(AsyncService.class);
-            System.err.println(i + "----start submit");
-            //调用service层的任务
-            asyncService.executeAsync();
-            System.err.println(i + "----end submit");
-        }
-    }
-
-    /**
      * lslf4j 日志输出，测试方法
      */
-    public static void slf4jTest() {
-        logger.trace("1111111111111111111111111");
-        logger.debug("2222222222222222222222222");
-        logger.info("3333333333333333333333333");
-        logger.warn("44444444444444444444444444");
-        logger.error("55555555555555555555555555");
-        logger1.trace("--------------1111111111111111111111111");
-        logger1.debug("--------------2222222222222222222222222");
-        logger1.info("--------------3333333333333333333333333");
-        logger1.warn("--------------44444444444444444444444444");
-        logger1.error("--------------55555555555555555555555555");
-        logger2.trace("++++++++++++++1111111111111111111111111");
-        logger2.debug("++++++++++++++2222222222222222222222222");
-        logger2.info("++++++++++++++3333333333333333333333333");
-        logger2.warn("++++++++++++++44444444444444444444444444");
-        logger2.error("++++++++++++++55555555555555555555555555");
+    public  void redisTest() {
+        //往redis中写入数据
+        redisTemplate.opsForValue().increment("asdfghj");
+        //获取redis中所有键值
+        Collection<String> keys = redisTemplate.keys("*");
+        logger.info(keys.toString());
 
-    }
-
-    /**
-     * lslf4j 日志输出，测试方法
-     */
-    public static void aopTest() {
-        UserAction bean = SpringBootUtil.getBean(UserAction.class);
-        bean.login();
     }
 
     /**

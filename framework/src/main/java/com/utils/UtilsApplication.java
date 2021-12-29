@@ -29,8 +29,8 @@ public class UtilsApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(UtilsApplication.class, args);
         System.err.println(context.getEnvironment());
-        //Test.asyncTest();
-        Test.kafkaTest();
+
+       new  Test().redisTest();
     }
 
 
