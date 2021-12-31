@@ -20,9 +20,9 @@ public class SubscribeSample {
     private static Logger logger = LoggerFactory.getLogger(SubscribeSample.class);
     public static void main(String[] args) throws MqttException {
         //String HOST = "tcp://110.42.169.107:8099";
-        String HOST = "tcp://81.69.235.71:8089";
+        String HOST = "tcp://161.189.119.183:8089";
         //String HOST = "tcp://1.116.234.137:1883";
-        String TOPIC = "test/nosubscribe";
+        String TOPIC = "$SYS/brokers/+/clients/#";
         int qos = 2;
         String clientid = "2";
         try {

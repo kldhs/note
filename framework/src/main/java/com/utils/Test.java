@@ -10,7 +10,9 @@ import org.eclipse.leshan.core.model.InvalidModelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.util.UUID;
  * 测试方法
  */
 @Slf4j
+@Component
 public class Test {
     private static Logger logger = LoggerFactory.getLogger(Test.class);
     private static Logger logger1 = LoggerFactory.getLogger("login");
@@ -30,7 +33,7 @@ public class Test {
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
     @Resource
-    RedisTemplate redisTemplate;
+    StringRedisTemplate stringRedisTemplate;
 
     /**
      * mqtt 测试方法
@@ -71,11 +74,10 @@ public class Test {
      */
     public  void redisTest() {
         //往redis中写入数据
-        redisTemplate.opsForValue().increment("asdfghj");
+        stringRedisTemplate.opsForValue().increment("device:status:ae8452abb8df2b3e:info");
         //获取redis中所有键值
-        Collection<String> keys = redisTemplate.keys("*");
+        Collection<String> keys = stringRedisTemplate.keys("*");
         logger.info(keys.toString());
-
     }
 
     /**
