@@ -20,18 +20,18 @@ public class SubscribeSample {
     private static Logger logger = LoggerFactory.getLogger(SubscribeSample.class);
     public static void main(String[] args) throws MqttException {
         //String HOST = "tcp://110.42.169.107:8099";
-        String HOST = "tcp://161.189.119.183:8089";
+        String HOST = "tcp://81.69.235.71:8089";
         //String HOST = "tcp://1.116.234.137:1883";
         String TOPIC = "$SYS/brokers/+/clients/#";
         int qos = 2;
-        String clientid = "2";
+        String clientid = "44_1452356432";
         try {
             // host为主机名，test为clientid即连接MQTT的客户端ID，一般以客户端唯一标识符表示，MemoryPersistence设置clientid的保存形式，默认为以内存保存
             MqttClient client = new MqttClient(HOST, clientid, new MemoryPersistence());
             // MQTT的连接设置
             MqttConnectOptions options = new MqttConnectOptions();
-            options.setUserName("abup");
-            options.setPassword("abup2021".toCharArray());
+            options.setUserName("44_1452356432");
+            options.setPassword("123456".toCharArray());
             // 设置是否清空session,这里如果设置为false表示服务器会保留客户端的连接记录，这里设置为true表示每次连接到服务器都以新的身份连接
             options.setCleanSession(true);
             // 设置超时时间 单位为秒
@@ -53,7 +53,7 @@ public class SubscribeSample {
                 }
 
                 public void deliveryComplete(IMqttDeliveryToken token) {
-                    logger.info("deliveryComplete---------" + token.isComplete());
+                    //logger.info("deliveryComplete---------" + token.isComplete());
                 }
 
             });

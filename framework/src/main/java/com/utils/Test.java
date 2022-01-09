@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -75,6 +76,8 @@ public class Test {
     public  void redisTest() {
         //往redis中写入数据
         stringRedisTemplate.opsForValue().increment("device:status:ae8452abb8df2b3e:info");
+        stringRedisTemplate.opsForValue().set("aaaaaaaaaaaa","1111111111111");
+        stringRedisTemplate.opsForValue().set("aaaaaaaaaaaa",null);
         //获取redis中所有键值
         Collection<String> keys = stringRedisTemplate.keys("*");
         logger.info(keys.toString());
