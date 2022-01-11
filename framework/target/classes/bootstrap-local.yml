@@ -16,6 +16,16 @@ spring:
       ack-mode: manual
     bootstrap-servers: 127.0.0.1:9092
 
+  redis:
+    host: 127.0.0.1
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 100
+        max-wait: -1
+        min-idle: 50
+    port: 6379
+    timeout: 2000
 
 server:
   port:

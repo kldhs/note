@@ -3,6 +3,7 @@ package com.utils;
 import com.utils.lwm2m.clinet.client.Lwm2mClient;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.mqtt.MqttClientService;
+import com.utils.redis.RedisService;
 import com.utils.spring.SpringBootUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.leshan.core.model.InvalidDDFFileException;
@@ -34,7 +35,7 @@ public class Test {
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
     @Resource
-    StringRedisTemplate stringRedisTemplate;
+    private RedisService redisService;
 
     /**
      * mqtt 测试方法
@@ -74,13 +75,7 @@ public class Test {
      * lslf4j 日志输出，测试方法
      */
     public  void redisTest() {
-        //往redis中写入数据
-        stringRedisTemplate.opsForValue().increment("device:status:ae8452abb8df2b3e:info");
-        stringRedisTemplate.opsForValue().set("aaaaaaaaaaaa","1111111111111");
-        stringRedisTemplate.opsForValue().set("aaaaaaaaaaaa",null);
-        //获取redis中所有键值
-        Collection<String> keys = stringRedisTemplate.keys("*");
-        logger.info(keys.toString());
+        redisService.set();
     }
 
     /**

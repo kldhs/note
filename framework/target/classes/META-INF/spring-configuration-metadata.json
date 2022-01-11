@@ -9,21 +9,6 @@
       "name": "mqtt",
       "type": "com.utils.mqtt.MqttConfigPoJo",
       "sourceType": "com.utils.mqtt.MqttConfigPoJo"
-    },
-    {
-      "name": "spring.kafka",
-      "type": "com.utils.kafka.ProducerKafkaConfig",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig"
-    },
-    {
-      "name": "test",
-      "type": "com.utils.config.ConfigsPoJo",
-      "sourceType": "com.utils.config.ConfigsPoJo"
-    },
-    {
-      "name": "threadpool",
-      "type": "com.utils.threadpool.executorsandspring.ThreadPoolConfigPoJo",
-      "sourceType": "com.utils.threadpool.executorsandspring.ThreadPoolConfigPoJo"
     }
   ],
   "properties": [
@@ -81,87 +66,6 @@
       "name": "mqtt.user-name",
       "type": "java.lang.String",
       "sourceType": "com.utils.mqtt.MqttConfigPoJo"
-    },
-    {
-      "name": "spring.kafka.acks",
-      "type": "java.lang.String",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig"
-    },
-    {
-      "name": "spring.kafka.buffer",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig",
-      "defaultValue": 0
-    },
-    {
-      "name": "spring.kafka.key",
-      "type": "java.lang.String",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig"
-    },
-    {
-      "name": "spring.kafka.retries",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig",
-      "defaultValue": 0
-    },
-    {
-      "name": "spring.kafka.servers",
-      "type": "java.lang.String",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig"
-    },
-    {
-      "name": "spring.kafka.size",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig",
-      "defaultValue": 0
-    },
-    {
-      "name": "spring.kafka.value",
-      "type": "java.lang.String",
-      "sourceType": "com.utils.kafka.ProducerKafkaConfig"
-    },
-    {
-      "name": "test.x",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.config.ConfigsPoJo",
-      "defaultValue": 0
-    },
-    {
-      "name": "test.y",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.config.ConfigsPoJo",
-      "defaultValue": 0
-    },
-    {
-      "name": "test.z",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.config.ConfigsPoJo",
-      "defaultValue": 0
-    },
-    {
-      "name": "threadpool.core-pool-size",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.threadpool.executorsandspring.ThreadPoolConfigPoJo"
-    },
-    {
-      "name": "threadpool.keep-alive",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.threadpool.executorsandspring.ThreadPoolConfigPoJo"
-    },
-    {
-      "name": "threadpool.max-pool-size",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.threadpool.executorsandspring.ThreadPoolConfigPoJo"
-    },
-    {
-      "name": "threadpool.queue-capacity",
-      "type": "java.lang.Integer",
-      "sourceType": "com.utils.threadpool.executorsandspring.ThreadPoolConfigPoJo"
-    },
-    {
-      "name": "threadpool.thread-name-prefix",
-      "type": "java.lang.String",
-      "sourceType": "com.utils.threadpool.executorsandspring.ThreadPoolConfigPoJo"
     }
   ],
   "hints": []

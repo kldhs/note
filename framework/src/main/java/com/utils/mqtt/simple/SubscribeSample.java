@@ -19,19 +19,19 @@ import org.slf4j.LoggerFactory;
 public class SubscribeSample {
     private static Logger logger = LoggerFactory.getLogger(SubscribeSample.class);
     public static void main(String[] args) throws MqttException {
-        //String HOST = "tcp://110.42.169.107:8099";
+        //String HOST = "tcp://ec2-161-189-119-183.cn-northwest-1.compute.amazonaws.com.cn";
         String HOST = "tcp://81.69.235.71:8089";
         //String HOST = "tcp://1.116.234.137:1883";
         String TOPIC = "$SYS/brokers/+/clients/#";
         int qos = 2;
-        String clientid = "44_1452356432";
+        String clientid = "5168_920000000000051";
         try {
             // host为主机名，test为clientid即连接MQTT的客户端ID，一般以客户端唯一标识符表示，MemoryPersistence设置clientid的保存形式，默认为以内存保存
             MqttClient client = new MqttClient(HOST, clientid, new MemoryPersistence());
             // MQTT的连接设置
             MqttConnectOptions options = new MqttConnectOptions();
-            options.setUserName("44_1452356432");
-            options.setPassword("123456".toCharArray());
+            options.setUserName("5168_920000000000051");
+            options.setPassword("feb3aed743e74f45b718de349f0774e1".toCharArray());
             // 设置是否清空session,这里如果设置为false表示服务器会保留客户端的连接记录，这里设置为true表示每次连接到服务器都以新的身份连接
             options.setCleanSession(true);
             // 设置超时时间 单位为秒
