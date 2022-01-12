@@ -30,7 +30,7 @@ public class FrameworkApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(FrameworkApplication.class, args);
         Test bean = SpringBootUtil.getBean(Test.class);
-        bean.redisTest();
+        //bean.redisTest();
     }
 
 
