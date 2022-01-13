@@ -227,13 +227,39 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!-- mysql start-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>2.1.2</version>
+        </dependency>-->
+        <!-- mysql end-->
+
+        <!--引用外部jar-->
+        <!--<dependency>
+            <groupId>path</groupId>
+            <artifactId>path</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/WEB-INF/path.jar</systemPath>
+        </dependency>-->
     </dependencies>
 
     <build><!--编译设置，全局配置（位于project下）针对整个项目的配置；不同profile配置（位于profiles）针对不同的profile配置-->
         <plugins><!--编译过程中使用的插件-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <artifactId>spring-boot-maven-plugin</artifactId><!--将项目打包成fat jar，应用启动运行需要的所有jar都会包含进去-->
                 <executions>
                     <execution>
                         <goals>
@@ -241,20 +267,42 @@
                         </goals>
                     </execution>
                 </executions>
-
                 <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.utils.FrameworkApplication</mainClass>
+                    <includeSystemScope>true</includeSystemScope><!--打包时会将外部引入的jar，如根目录、resource文件添加的外部jar包，打包到项目-->
+                    <mainClass>com.utils.FrameworkApplication</mainClass><!--打包时主函数入口-->
                 </configuration>
             </plugin>
 
-            <plugin>
+            <plugin><!--mybatis 逆向工程插件-->
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.20</version>
+                    </dependency>
+                   <!-- <dependency>
+                        <groupId>tk.mybatis</groupId>
+                        <artifactId>mapper</artifactId>
+                        <version>3.4.3</version>
+                    </dependency>-->
+                </dependencies>
+            </plugin>
+
+            <plugin><!--docker相关插件-->
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.2</version>
                 <configuration>
                     <imageName>${project.artifactId}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
+                    <!-- 复制jar包到docker容器指定目录配置 -->
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
