@@ -1,5 +1,6 @@
 package com.utils;
 
+import com.utils.kafka.KafkaProducerService;
 import com.utils.lwm2m.clinet.client.Lwm2mClient;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.mqtt.MqttClientService;
@@ -10,15 +11,11 @@ import org.eclipse.leshan.core.model.InvalidDDFFileException;
 import org.eclipse.leshan.core.model.InvalidModelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -36,6 +33,9 @@ public class Test {
     private KafkaTemplate<String, Object> kafkaTemplate;
     @Resource
     private RedisService redisService;
+    @Resource
+    KafkaProducerService kafkaProducerService;
+
 
     /**
      * mqtt 测试方法
@@ -74,16 +74,15 @@ public class Test {
     /**
      * lslf4j 日志输出，测试方法
      */
-    public  void redisTest() {
+    public void redisTest() {
         redisService.set();
     }
 
     /**
      * kafka 测试方法
      */
-    public static void kafkaTest() {
-        KafkaTemplate<String, Object> kafkaTemplate = SpringBootUtil.getBean(KafkaTemplate.class);
-        kafkaTemplate.send("pushDetail_update", "pushDetail_update", "qwsdfgasdf");
+    public  void kafkaTest() {
+        kafkaProducerService.kafkaSend();
     }
 
 }

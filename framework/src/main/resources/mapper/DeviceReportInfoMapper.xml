@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.utils.mysql.mapper.DeviceReportInfoMapper">
+  <resultMap id="BaseResultMap" type="com.utils.mysql.model.entity.DeviceReportInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="value_define_version" jdbcType="BIT" property="valueDefineVersion" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="v1" jdbcType="VARCHAR" property="v1" />
+    <result column="v2" jdbcType="VARCHAR" property="v2" />
+    <result column="v3" jdbcType="VARCHAR" property="v3" />
+    <result column="v4" jdbcType="VARCHAR" property="v4" />
+    <result column="v5" jdbcType="VARCHAR" property="v5" />
+    <result column="v6" jdbcType="VARCHAR" property="v6" />
+    <result column="v7" jdbcType="VARCHAR" property="v7" />
+    <result column="v8" jdbcType="VARCHAR" property="v8" />
+    <result column="v9" jdbcType="VARCHAR" property="v9" />
+    <result column="v10" jdbcType="VARCHAR" property="v10" />
+    <result column="v11" jdbcType="VARCHAR" property="v11" />
+    <result column="v12" jdbcType="VARCHAR" property="v12" />
+    <result column="v13" jdbcType="VARCHAR" property="v13" />
+    <result column="v14" jdbcType="VARCHAR" property="v14" />
+    <result column="v15" jdbcType="VARCHAR" property="v15" />
+    <result column="v16" jdbcType="VARCHAR" property="v16" />
+    <result column="v17" jdbcType="VARCHAR" property="v17" />
+    <result column="v18" jdbcType="VARCHAR" property="v18" />
+    <result column="v19" jdbcType="VARCHAR" property="v19" />
+    <result column="v20" jdbcType="VARCHAR" property="v20" />
+    <result column="v21" jdbcType="VARCHAR" property="v21" />
+    <result column="v22" jdbcType="VARCHAR" property="v22" />
+    <result column="v23" jdbcType="VARCHAR" property="v23" />
+    <result column="v24" jdbcType="VARCHAR" property="v24" />
+    <result column="v25" jdbcType="VARCHAR" property="v25" />
+    <result column="v26" jdbcType="VARCHAR" property="v26" />
+    <result column="v27" jdbcType="VARCHAR" property="v27" />
+    <result column="v28" jdbcType="VARCHAR" property="v28" />
+    <result column="v29" jdbcType="VARCHAR" property="v29" />
+    <result column="v30" jdbcType="VARCHAR" property="v30" />
+    <result column="v31" jdbcType="VARCHAR" property="v31" />
+    <result column="v32" jdbcType="VARCHAR" property="v32" />
+    <result column="v33" jdbcType="VARCHAR" property="v33" />
+    <result column="v34" jdbcType="VARCHAR" property="v34" />
+    <result column="v35" jdbcType="VARCHAR" property="v35" />
+    <result column="v36" jdbcType="VARCHAR" property="v36" />
+    <result column="v37" jdbcType="VARCHAR" property="v37" />
+    <result column="v38" jdbcType="VARCHAR" property="v38" />
+    <result column="v39" jdbcType="VARCHAR" property="v39" />
+    <result column="v40" jdbcType="VARCHAR" property="v40" />
+    <result column="v41" jdbcType="VARCHAR" property="v41" />
+    <result column="v42" jdbcType="VARCHAR" property="v42" />
+    <result column="v43" jdbcType="VARCHAR" property="v43" />
+    <result column="v44" jdbcType="VARCHAR" property="v44" />
+    <result column="v45" jdbcType="VARCHAR" property="v45" />
+    <result column="v46" jdbcType="VARCHAR" property="v46" />
+    <result column="v47" jdbcType="VARCHAR" property="v47" />
+    <result column="v48" jdbcType="VARCHAR" property="v48" />
+    <result column="v49" jdbcType="VARCHAR" property="v49" />
+    <result column="v50" jdbcType="VARCHAR" property="v50" />
+    <result column="v51" jdbcType="VARCHAR" property="v51" />
+    <result column="v52" jdbcType="VARCHAR" property="v52" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, product_id, device_id, value_define_version, create_time, v1, v2, v3, v4, v5, 
+    v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, 
+    v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, 
+    v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_report_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from device_report_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.utils.mysql.model.entity.DeviceReportInfo">
+    insert into device_report_info (id, product_id, device_id, 
+      value_define_version, create_time, v1, 
+      v2, v3, v4, v5, 
+      v6, v7, v8, v9, 
+      v10, v11, v12, v13, 
+      v14, v15, v16, v17, 
+      v18, v19, v20, v21, 
+      v22, v23, v24, v25, 
+      v26, v27, v28, v29, 
+      v30, v31, v32, v33, 
+      v34, v35, v36, v37, 
+      v38, v39, v40, v41, 
+      v42, v43, v44, v45, 
+      v46, v47, v48, v49, 
+      v50, v51, v52)
+    values (#{id,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{deviceId,jdbcType=VARCHAR}, 
+      #{valueDefineVersion,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{v1,jdbcType=VARCHAR}, 
+      #{v2,jdbcType=VARCHAR}, #{v3,jdbcType=VARCHAR}, #{v4,jdbcType=VARCHAR}, #{v5,jdbcType=VARCHAR}, 
+      #{v6,jdbcType=VARCHAR}, #{v7,jdbcType=VARCHAR}, #{v8,jdbcType=VARCHAR}, #{v9,jdbcType=VARCHAR}, 
+      #{v10,jdbcType=VARCHAR}, #{v11,jdbcType=VARCHAR}, #{v12,jdbcType=VARCHAR}, #{v13,jdbcType=VARCHAR}, 
+      #{v14,jdbcType=VARCHAR}, #{v15,jdbcType=VARCHAR}, #{v16,jdbcType=VARCHAR}, #{v17,jdbcType=VARCHAR}, 
+      #{v18,jdbcType=VARCHAR}, #{v19,jdbcType=VARCHAR}, #{v20,jdbcType=VARCHAR}, #{v21,jdbcType=VARCHAR}, 
+      #{v22,jdbcType=VARCHAR}, #{v23,jdbcType=VARCHAR}, #{v24,jdbcType=VARCHAR}, #{v25,jdbcType=VARCHAR}, 
+      #{v26,jdbcType=VARCHAR}, #{v27,jdbcType=VARCHAR}, #{v28,jdbcType=VARCHAR}, #{v29,jdbcType=VARCHAR}, 
+      #{v30,jdbcType=VARCHAR}, #{v31,jdbcType=VARCHAR}, #{v32,jdbcType=VARCHAR}, #{v33,jdbcType=VARCHAR}, 
+      #{v34,jdbcType=VARCHAR}, #{v35,jdbcType=VARCHAR}, #{v36,jdbcType=VARCHAR}, #{v37,jdbcType=VARCHAR}, 
+      #{v38,jdbcType=VARCHAR}, #{v39,jdbcType=VARCHAR}, #{v40,jdbcType=VARCHAR}, #{v41,jdbcType=VARCHAR}, 
+      #{v42,jdbcType=VARCHAR}, #{v43,jdbcType=VARCHAR}, #{v44,jdbcType=VARCHAR}, #{v45,jdbcType=VARCHAR}, 
+      #{v46,jdbcType=VARCHAR}, #{v47,jdbcType=VARCHAR}, #{v48,jdbcType=VARCHAR}, #{v49,jdbcType=VARCHAR}, 
+      #{v50,jdbcType=VARCHAR}, #{v51,jdbcType=VARCHAR}, #{v52,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.utils.mysql.model.entity.DeviceReportInfo">
+    insert into device_report_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="valueDefineVersion != null">
+        value_define_version,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="v1 != null">
+        v1,
+      </if>
+      <if test="v2 != null">
+        v2,
+      </if>
+      <if test="v3 != null">
+        v3,
+      </if>
+      <if test="v4 != null">
+        v4,
+      </if>
+      <if test="v5 != null">
+        v5,
+      </if>
+      <if test="v6 != null">
+        v6,
+      </if>
+      <if test="v7 != null">
+        v7,
+      </if>
+      <if test="v8 != null">
+        v8,
+      </if>
+      <if test="v9 != null">
+        v9,
+      </if>
+      <if test="v10 != null">
+        v10,
+      </if>
+      <if test="v11 != null">
+        v11,
+      </if>
+      <if test="v12 != null">
+        v12,
+      </if>
+      <if test="v13 != null">
+        v13,
+      </if>
+      <if test="v14 != null">
+        v14,
+      </if>
+      <if test="v15 != null">
+        v15,
+      </if>
+      <if test="v16 != null">
+        v16,
+      </if>
+      <if test="v17 != null">
+        v17,
+      </if>
+      <if test="v18 != null">
+        v18,
+      </if>
+      <if test="v19 != null">
+        v19,
+      </if>
+      <if test="v20 != null">
+        v20,
+      </if>
+      <if test="v21 != null">
+        v21,
+      </if>
+      <if test="v22 != null">
+        v22,
+      </if>
+      <if test="v23 != null">
+        v23,
+      </if>
+      <if test="v24 != null">
+        v24,
+      </if>
+      <if test="v25 != null">
+        v25,
+      </if>
+      <if test="v26 != null">
+        v26,
+      </if>
+      <if test="v27 != null">
+        v27,
+      </if>
+      <if test="v28 != null">
+        v28,
+      </if>
+      <if test="v29 != null">
+        v29,
+      </if>
+      <if test="v30 != null">
+        v30,
+      </if>
+      <if test="v31 != null">
+        v31,
+      </if>
+      <if test="v32 != null">
+        v32,
+      </if>
+      <if test="v33 != null">
+        v33,
+      </if>
+      <if test="v34 != null">
+        v34,
+      </if>
+      <if test="v35 != null">
+        v35,
+      </if>
+      <if test="v36 != null">
+        v36,
+      </if>
+      <if test="v37 != null">
+        v37,
+      </if>
+      <if test="v38 != null">
+        v38,
+      </if>
+      <if test="v39 != null">
+        v39,
+      </if>
+      <if test="v40 != null">
+        v40,
+      </if>
+      <if test="v41 != null">
+        v41,
+      </if>
+      <if test="v42 != null">
+        v42,
+      </if>
+      <if test="v43 != null">
+        v43,
+      </if>
+      <if test="v44 != null">
+        v44,
+      </if>
+      <if test="v45 != null">
+        v45,
+      </if>
+      <if test="v46 != null">
+        v46,
+      </if>
+      <if test="v47 != null">
+        v47,
+      </if>
+      <if test="v48 != null">
+        v48,
+      </if>
+      <if test="v49 != null">
+        v49,
+      </if>
+      <if test="v50 != null">
+        v50,
+      </if>
+      <if test="v51 != null">
+        v51,
+      </if>
+      <if test="v52 != null">
+        v52,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="valueDefineVersion != null">
+        #{valueDefineVersion,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="v1 != null">
+        #{v1,jdbcType=VARCHAR},
+      </if>
+      <if test="v2 != null">
+        #{v2,jdbcType=VARCHAR},
+      </if>
+      <if test="v3 != null">
+        #{v3,jdbcType=VARCHAR},
+      </if>
+      <if test="v4 != null">
+        #{v4,jdbcType=VARCHAR},
+      </if>
+      <if test="v5 != null">
+        #{v5,jdbcType=VARCHAR},
+      </if>
+      <if test="v6 != null">
+        #{v6,jdbcType=VARCHAR},
+      </if>
+      <if test="v7 != null">
+        #{v7,jdbcType=VARCHAR},
+      </if>
+      <if test="v8 != null">
+        #{v8,jdbcType=VARCHAR},
+      </if>
+      <if test="v9 != null">
+        #{v9,jdbcType=VARCHAR},
+      </if>
+      <if test="v10 != null">
+        #{v10,jdbcType=VARCHAR},
+      </if>
+      <if test="v11 != null">
+        #{v11,jdbcType=VARCHAR},
+      </if>
+      <if test="v12 != null">
+        #{v12,jdbcType=VARCHAR},
+      </if>
+      <if test="v13 != null">
+        #{v13,jdbcType=VARCHAR},
+      </if>
+      <if test="v14 != null">
+        #{v14,jdbcType=VARCHAR},
+      </if>
+      <if test="v15 != null">
+        #{v15,jdbcType=VARCHAR},
+      </if>
+      <if test="v16 != null">
+        #{v16,jdbcType=VARCHAR},
+      </if>
+      <if test="v17 != null">
+        #{v17,jdbcType=VARCHAR},
+      </if>
+      <if test="v18 != null">
+        #{v18,jdbcType=VARCHAR},
+      </if>
+      <if test="v19 != null">
+        #{v19,jdbcType=VARCHAR},
+      </if>
+      <if test="v20 != null">
+        #{v20,jdbcType=VARCHAR},
+      </if>
+      <if test="v21 != null">
+        #{v21,jdbcType=VARCHAR},
+      </if>
+      <if test="v22 != null">
+        #{v22,jdbcType=VARCHAR},
+      </if>
+      <if test="v23 != null">
+        #{v23,jdbcType=VARCHAR},
+      </if>
+      <if test="v24 != null">
+        #{v24,jdbcType=VARCHAR},
+      </if>
+      <if test="v25 != null">
+        #{v25,jdbcType=VARCHAR},
+      </if>
+      <if test="v26 != null">
+        #{v26,jdbcType=VARCHAR},
+      </if>
+      <if test="v27 != null">
+        #{v27,jdbcType=VARCHAR},
+      </if>
+      <if test="v28 != null">
+        #{v28,jdbcType=VARCHAR},
+      </if>
+      <if test="v29 != null">
+        #{v29,jdbcType=VARCHAR},
+      </if>
+      <if test="v30 != null">
+        #{v30,jdbcType=VARCHAR},
+      </if>
+      <if test="v31 != null">
+        #{v31,jdbcType=VARCHAR},
+      </if>
+      <if test="v32 != null">
+        #{v32,jdbcType=VARCHAR},
+      </if>
+      <if test="v33 != null">
+        #{v33,jdbcType=VARCHAR},
+      </if>
+      <if test="v34 != null">
+        #{v34,jdbcType=VARCHAR},
+      </if>
+      <if test="v35 != null">
+        #{v35,jdbcType=VARCHAR},
+      </if>
+      <if test="v36 != null">
+        #{v36,jdbcType=VARCHAR},
+      </if>
+      <if test="v37 != null">
+        #{v37,jdbcType=VARCHAR},
+      </if>
+      <if test="v38 != null">
+        #{v38,jdbcType=VARCHAR},
+      </if>
+      <if test="v39 != null">
+        #{v39,jdbcType=VARCHAR},
+      </if>
+      <if test="v40 != null">
+        #{v40,jdbcType=VARCHAR},
+      </if>
+      <if test="v41 != null">
+        #{v41,jdbcType=VARCHAR},
+      </if>
+      <if test="v42 != null">
+        #{v42,jdbcType=VARCHAR},
+      </if>
+      <if test="v43 != null">
+        #{v43,jdbcType=VARCHAR},
+      </if>
+      <if test="v44 != null">
+        #{v44,jdbcType=VARCHAR},
+      </if>
+      <if test="v45 != null">
+        #{v45,jdbcType=VARCHAR},
+      </if>
+      <if test="v46 != null">
+        #{v46,jdbcType=VARCHAR},
+      </if>
+      <if test="v47 != null">
+        #{v47,jdbcType=VARCHAR},
+      </if>
+      <if test="v48 != null">
+        #{v48,jdbcType=VARCHAR},
+      </if>
+      <if test="v49 != null">
+        #{v49,jdbcType=VARCHAR},
+      </if>
+      <if test="v50 != null">
+        #{v50,jdbcType=VARCHAR},
+      </if>
+      <if test="v51 != null">
+        #{v51,jdbcType=VARCHAR},
+      </if>
+      <if test="v52 != null">
+        #{v52,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.utils.mysql.model.entity.DeviceReportInfo">
+    update device_report_info
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="valueDefineVersion != null">
+        value_define_version = #{valueDefineVersion,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="v1 != null">
+        v1 = #{v1,jdbcType=VARCHAR},
+      </if>
+      <if test="v2 != null">
+        v2 = #{v2,jdbcType=VARCHAR},
+      </if>
+      <if test="v3 != null">
+        v3 = #{v3,jdbcType=VARCHAR},
+      </if>
+      <if test="v4 != null">
+        v4 = #{v4,jdbcType=VARCHAR},
+      </if>
+      <if test="v5 != null">
+        v5 = #{v5,jdbcType=VARCHAR},
+      </if>
+      <if test="v6 != null">
+        v6 = #{v6,jdbcType=VARCHAR},
+      </if>
+      <if test="v7 != null">
+        v7 = #{v7,jdbcType=VARCHAR},
+      </if>
+      <if test="v8 != null">
+        v8 = #{v8,jdbcType=VARCHAR},
+      </if>
+      <if test="v9 != null">
+        v9 = #{v9,jdbcType=VARCHAR},
+      </if>
+      <if test="v10 != null">
+        v10 = #{v10,jdbcType=VARCHAR},
+      </if>
+      <if test="v11 != null">
+        v11 = #{v11,jdbcType=VARCHAR},
+      </if>
+      <if test="v12 != null">
+        v12 = #{v12,jdbcType=VARCHAR},
+      </if>
+      <if test="v13 != null">
+        v13 = #{v13,jdbcType=VARCHAR},
+      </if>
+      <if test="v14 != null">
+        v14 = #{v14,jdbcType=VARCHAR},
+      </if>
+      <if test="v15 != null">
+        v15 = #{v15,jdbcType=VARCHAR},
+      </if>
+      <if test="v16 != null">
+        v16 = #{v16,jdbcType=VARCHAR},
+      </if>
+      <if test="v17 != null">
+        v17 = #{v17,jdbcType=VARCHAR},
+      </if>
+      <if test="v18 != null">
+        v18 = #{v18,jdbcType=VARCHAR},
+      </if>
+      <if test="v19 != null">
+        v19 = #{v19,jdbcType=VARCHAR},
+      </if>
+      <if test="v20 != null">
+        v20 = #{v20,jdbcType=VARCHAR},
+      </if>
+      <if test="v21 != null">
+        v21 = #{v21,jdbcType=VARCHAR},
+      </if>
+      <if test="v22 != null">
+        v22 = #{v22,jdbcType=VARCHAR},
+      </if>
+      <if test="v23 != null">
+        v23 = #{v23,jdbcType=VARCHAR},
+      </if>
+      <if test="v24 != null">
+        v24 = #{v24,jdbcType=VARCHAR},
+      </if>
+      <if test="v25 != null">
+        v25 = #{v25,jdbcType=VARCHAR},
+      </if>
+      <if test="v26 != null">
+        v26 = #{v26,jdbcType=VARCHAR},
+      </if>
+      <if test="v27 != null">
+        v27 = #{v27,jdbcType=VARCHAR},
+      </if>
+      <if test="v28 != null">
+        v28 = #{v28,jdbcType=VARCHAR},
+      </if>
+      <if test="v29 != null">
+        v29 = #{v29,jdbcType=VARCHAR},
+      </if>
+      <if test="v30 != null">
+        v30 = #{v30,jdbcType=VARCHAR},
+      </if>
+      <if test="v31 != null">
+        v31 = #{v31,jdbcType=VARCHAR},
+      </if>
+      <if test="v32 != null">
+        v32 = #{v32,jdbcType=VARCHAR},
+      </if>
+      <if test="v33 != null">
+        v33 = #{v33,jdbcType=VARCHAR},
+      </if>
+      <if test="v34 != null">
+        v34 = #{v34,jdbcType=VARCHAR},
+      </if>
+      <if test="v35 != null">
+        v35 = #{v35,jdbcType=VARCHAR},
+      </if>
+      <if test="v36 != null">
+        v36 = #{v36,jdbcType=VARCHAR},
+      </if>
+      <if test="v37 != null">
+        v37 = #{v37,jdbcType=VARCHAR},
+      </if>
+      <if test="v38 != null">
+        v38 = #{v38,jdbcType=VARCHAR},
+      </if>
+      <if test="v39 != null">
+        v39 = #{v39,jdbcType=VARCHAR},
+      </if>
+      <if test="v40 != null">
+        v40 = #{v40,jdbcType=VARCHAR},
+      </if>
+      <if test="v41 != null">
+        v41 = #{v41,jdbcType=VARCHAR},
+      </if>
+      <if test="v42 != null">
+        v42 = #{v42,jdbcType=VARCHAR},
+      </if>
+      <if test="v43 != null">
+        v43 = #{v43,jdbcType=VARCHAR},
+      </if>
+      <if test="v44 != null">
+        v44 = #{v44,jdbcType=VARCHAR},
+      </if>
+      <if test="v45 != null">
+        v45 = #{v45,jdbcType=VARCHAR},
+      </if>
+      <if test="v46 != null">
+        v46 = #{v46,jdbcType=VARCHAR},
+      </if>
+      <if test="v47 != null">
+        v47 = #{v47,jdbcType=VARCHAR},
+      </if>
+      <if test="v48 != null">
+        v48 = #{v48,jdbcType=VARCHAR},
+      </if>
+      <if test="v49 != null">
+        v49 = #{v49,jdbcType=VARCHAR},
+      </if>
+      <if test="v50 != null">
+        v50 = #{v50,jdbcType=VARCHAR},
+      </if>
+      <if test="v51 != null">
+        v51 = #{v51,jdbcType=VARCHAR},
+      </if>
+      <if test="v52 != null">
+        v52 = #{v52,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.utils.mysql.model.entity.DeviceReportInfo">
+    update device_report_info
+    set product_id = #{productId,jdbcType=BIGINT},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      value_define_version = #{valueDefineVersion,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      v1 = #{v1,jdbcType=VARCHAR},
+      v2 = #{v2,jdbcType=VARCHAR},
+      v3 = #{v3,jdbcType=VARCHAR},
+      v4 = #{v4,jdbcType=VARCHAR},
+      v5 = #{v5,jdbcType=VARCHAR},
+      v6 = #{v6,jdbcType=VARCHAR},
+      v7 = #{v7,jdbcType=VARCHAR},
+      v8 = #{v8,jdbcType=VARCHAR},
+      v9 = #{v9,jdbcType=VARCHAR},
+      v10 = #{v10,jdbcType=VARCHAR},
+      v11 = #{v11,jdbcType=VARCHAR},
+      v12 = #{v12,jdbcType=VARCHAR},
+      v13 = #{v13,jdbcType=VARCHAR},
+      v14 = #{v14,jdbcType=VARCHAR},
+      v15 = #{v15,jdbcType=VARCHAR},
+      v16 = #{v16,jdbcType=VARCHAR},
+      v17 = #{v17,jdbcType=VARCHAR},
+      v18 = #{v18,jdbcType=VARCHAR},
+      v19 = #{v19,jdbcType=VARCHAR},
+      v20 = #{v20,jdbcType=VARCHAR},
+      v21 = #{v21,jdbcType=VARCHAR},
+      v22 = #{v22,jdbcType=VARCHAR},
+      v23 = #{v23,jdbcType=VARCHAR},
+      v24 = #{v24,jdbcType=VARCHAR},
+      v25 = #{v25,jdbcType=VARCHAR},
+      v26 = #{v26,jdbcType=VARCHAR},
+      v27 = #{v27,jdbcType=VARCHAR},
+      v28 = #{v28,jdbcType=VARCHAR},
+      v29 = #{v29,jdbcType=VARCHAR},
+      v30 = #{v30,jdbcType=VARCHAR},
+      v31 = #{v31,jdbcType=VARCHAR},
+      v32 = #{v32,jdbcType=VARCHAR},
+      v33 = #{v33,jdbcType=VARCHAR},
+      v34 = #{v34,jdbcType=VARCHAR},
+      v35 = #{v35,jdbcType=VARCHAR},
+      v36 = #{v36,jdbcType=VARCHAR},
+      v37 = #{v37,jdbcType=VARCHAR},
+      v38 = #{v38,jdbcType=VARCHAR},
+      v39 = #{v39,jdbcType=VARCHAR},
+      v40 = #{v40,jdbcType=VARCHAR},
+      v41 = #{v41,jdbcType=VARCHAR},
+      v42 = #{v42,jdbcType=VARCHAR},
+      v43 = #{v43,jdbcType=VARCHAR},
+      v44 = #{v44,jdbcType=VARCHAR},
+      v45 = #{v45,jdbcType=VARCHAR},
+      v46 = #{v46,jdbcType=VARCHAR},
+      v47 = #{v47,jdbcType=VARCHAR},
+      v48 = #{v48,jdbcType=VARCHAR},
+      v49 = #{v49,jdbcType=VARCHAR},
+      v50 = #{v50,jdbcType=VARCHAR},
+      v51 = #{v51,jdbcType=VARCHAR},
+      v52 = #{v52,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

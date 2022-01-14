@@ -1,20 +1,31 @@
+server:
+  port:
+    8089
+
 spring:
-  #kafka消费者配置
+
+  cloud:
+    config:
+      enabled: false
+
   kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    #kafka消费者配置
     consumer:
       enable-auto-commit: false
       auto-offset-reset: earliest
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       max-poll-records: 1000
+    #      group-id: test
+    #kafka生产者配置
     producer:
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      acks: 1
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-    listener:
-      concurrency: 10
-      ack-mode: manual
-    bootstrap-servers: 127.0.0.1:9092
+      retries: 0  #是否重试，默认为0，不重试
+      batch-size: 16384 #批处理消息记录的字节数
+      buffer-memory: 33554432 #缓存数据的内存大小
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer  #关键字的序列化类。如果没给与这项，默认情况是和消息一致
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer  #消息的序列化类别。默认编码器输入一个字节byte[]，然后返回相同的字节byte[]
+      acks: 1 #在offset  commit可以接受之前，需要设置确认的数目，一般不需要更改
 
   redis:
     host: 127.0.0.1
@@ -27,19 +38,35 @@ spring:
     port: 6379
     timeout: 2000
 
-server:
-  port:
-    8091
+  datasource:
+    name: druidDataSource
+    type: com.zaxxer.hikari.HikariDataSource
+#    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url:  jdbc:mysql://127.0.0.1:3306/iot_device?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false&autoReconnect=true&failOverReadOnly=false
+      url: jdbc:mysql://127.0.0.1:3306/iot_device?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+      filters: stat,config
+      initial-size: 5
+      max-active: 100
+      max-open-prepared-statements: 50
+      max-pool-prepared-statement-per-connection-size: 20
+      max-wait: 60000
+      min-evictable-idle-time-millis: 300000
+      min-idle: 10
+      pool-prepared-statements: true
+      test-on-borrow: true
+      test-on-return: true
+      test-while-idle: true
+      time-between-eviction-runs-millis: 2000
+      validation-query: SELECT 1 FROM DUAL
 
-#kafka消息生成者配置
-kafka:
-  value: "org.apache.kafka.common.serialization.StringSerializer"
-  key: "org.apache.kafka.common.serialization.StringSerializer"
-  size: "16384"
-  retries: "0"
-  servers: "127.0.0.1:9092"
-  acks: "1"
-  buffer: "33554432"
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml
+  typeAliasesPackage: org.spring.springboot.model
+
 
 #日志
 logging:
@@ -67,5 +94,4 @@ mqtt:
 lwm2m:
   ip: "127.0.0.1"
   port: 5683
-  #用于识别客户端，类似clientid
-  endpoint: "1111"
+  endpoint: "1111"  #用于识别客户端，类似clientid

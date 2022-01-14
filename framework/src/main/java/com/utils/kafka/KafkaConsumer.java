@@ -6,11 +6,6 @@
 //import org.springframework.kafka.support.Acknowledgment;
 //import org.springframework.stereotype.Component;
 //
-///**
-// * @author abupdate-wangxiaojing
-// * @date 2019/12/18
-// * @title
-// */
 //@Component
 //@Slf4j
 //public class KafkaConsumer {
