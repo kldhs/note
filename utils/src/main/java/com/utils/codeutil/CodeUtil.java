@@ -1,6 +1,5 @@
 package com.utils.codeutil;
 
-import com.utils.aop.UserAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -135,7 +134,7 @@ public class CodeUtil {
     }
 
     /**
-     * 将两个hex对应的ASCII码的10进制数转换为hex对应的真实10进制数。
+     * 将两个hex对应的ASCII码的10进制数转换为hex对应的真实10进制数。比如将"12"转换为18
      *
      * @param src0 高位字符对应的ASCII码的10进制数
      * @param src1 低位字符对应的ASCII码的10进制数
@@ -163,27 +162,6 @@ public class CodeUtil {
         return hex;
     }
 
-
-    /////////////////////////////////////////////////////////
-
-
-    /**
-     * hex转换为byte数组。
-     */
-    public static byte[] hex2Bytes(String src) {
-        src = src.replace("0x", "").replace("0X", "");
-        if (src.length() % 2 == 1) {
-            src = "0" + src;
-        }
-        int len = src.length();
-        byte[] ret = new byte[len / 2];
-        byte[] tmp = src.getBytes();
-        for (int i = 0; i < len; i += 2) {
-            ret[i / 2] = hexDecimal2Byte(tmp[i], tmp[i + 1]);
-        }
-        return ret;
-    }
-
     /**
      * bytes数组转hex
      *
@@ -203,6 +181,23 @@ public class CodeUtil {
     }
 
     /**
+     * hex转换为byte数组。
+     */
+    public static byte[] hex2Bytes(String src) {
+        src = src.replace("0x", "").replace("0X", "");
+        if (src.length() % 2 == 1) {
+            src = "0" + src;
+        }
+        int len = src.length();
+        byte[] ret = new byte[len / 2];
+        byte[] tmp = src.getBytes();
+        for (int i = 0; i < len; i += 2) {
+            ret[i / 2] = hexDecimal2Byte(tmp[i], tmp[i + 1]);
+        }
+        return ret;
+    }
+
+    /**
      * 获取hex的CRCCode（CRC-16/MODBUS）
      *
      * @param toSend
@@ -217,6 +212,16 @@ public class CodeUtil {
         return bytes2Hex(bb);
     }
 
+
+    /////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
     public static String hexMD5(String value) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -230,6 +235,7 @@ public class CodeUtil {
     }
 
     public static void main(String[] args) {
+        byte[] bytes = hex2Bytes("12345678");
         String hexCRCCode = hexMD5("12345678");
         logger.info("str");
     }

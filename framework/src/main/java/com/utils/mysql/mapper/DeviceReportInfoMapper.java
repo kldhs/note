@@ -1,7 +1,6 @@
 package com.utils.mysql.mapper;
 
 import com.utils.mysql.model.entity.DeviceReportInfo;
-
 public interface DeviceReportInfoMapper {
     int deleteByPrimaryKey(Long id);
 

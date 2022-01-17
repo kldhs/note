@@ -4,6 +4,8 @@ import com.utils.kafka.KafkaProducerService;
 import com.utils.lwm2m.clinet.client.Lwm2mClient;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.mqtt.MqttClientService;
+import com.utils.mysql.model.entity.DeviceReportInfo;
+import com.utils.mysql.service.DeviceReportInfoService;
 import com.utils.redis.RedisService;
 import com.utils.spring.SpringBootUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +37,8 @@ public class Test {
     private RedisService redisService;
     @Resource
     KafkaProducerService kafkaProducerService;
+    @Resource
+    DeviceReportInfoService deviceReportInfoService;
 
 
     /**
@@ -83,6 +87,21 @@ public class Test {
      */
     public  void kafkaTest() {
         kafkaProducerService.kafkaSend();
+    }
+
+    /**
+     * mysql 测试方法
+     */
+    public  void mysqlTest() {
+        DeviceReportInfo deviceReportInfo = new DeviceReportInfo();
+        deviceReportInfo.setProductId(11111111111111L);
+        deviceReportInfo.setDeviceId("1");
+        deviceReportInfo.setV1("aa");
+        deviceReportInfo.setV2("bb");
+        deviceReportInfo.setV3("cc");
+        deviceReportInfo.setV4("dd");
+        deviceReportInfo.setV5("ee");
+        deviceReportInfoService.insertIntoDeviceReportInfo(deviceReportInfo);
     }
 
 }

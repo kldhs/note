@@ -1,6 +1,7 @@
 package com.utils;
 
 import com.utils.spring.SpringBootUtil;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -15,6 +16,7 @@ import javax.annotation.Resource;
 @SpringBootApplication(
         //exclude= {DataSourceAutoConfiguration.class}
         )
+@MapperScan({"com.utils.mysql.mapper"})
 @EnableAsync
 //开启定时任务
 @EnableScheduling
@@ -31,7 +33,7 @@ public class FrameworkApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(FrameworkApplication.class, args);
         Test test = SpringBootUtil.getBean(Test.class);
-        test.kafkaTest();
+        test.mysqlTest();
     }
 
 
