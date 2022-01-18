@@ -1,8 +1,15 @@
 package com.utils.codeutil;
 
+
+import com.google.common.base.Preconditions;
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
+import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 
 /**
@@ -12,6 +19,7 @@ import java.security.MessageDigest;
  */
 public class CodeUtil {
     private static Logger logger = LoggerFactory.getLogger(CodeUtil.class);
+    public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
     private static byte uchCRCHi = (byte) 0xFF;
     private static byte uchCRCLo = (byte) 0xFF;
     private static byte[] auchCRCHi = {0x00, (byte) 0xC1, (byte) 0x81,
@@ -120,7 +128,6 @@ public class CodeUtil {
             (byte) 0x82, (byte) 0x42, (byte) 0x43, (byte) 0x83, (byte) 0x41,
             (byte) 0x81, (byte) 0x80, (byte) 0x40};
 
-
     private static int getCRCInt(byte[] puchMsg, int usDataLen) {
         int uIndex;
         int value;
@@ -154,7 +161,7 @@ public class CodeUtil {
      * @param b
      * @return
      */
-    private static String byteToHex(byte b) {
+    private static String byte2Hex(byte b) {
         String hex = Integer.toHexString(b & 0xFF);
         if (hex.length() < 2) {
             hex = "0" + hex;
@@ -206,23 +213,19 @@ public class CodeUtil {
     public static String getHexCRCCode(String toSend) {
         byte[] aa = hex2Bytes(toSend);
         byte[] bb = new byte[]{00, 00};
-        int ri =getCRCInt(aa, aa.length);
+        int ri = getCRCInt(aa, aa.length);
         bb[0] = (byte) (0xff & ri);
         bb[1] = (byte) ((0xff00 & ri) >> 8);
         return bytes2Hex(bb);
     }
 
-
-    /////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-    public static String hexMD5(String value) {
+    /**
+     * 获取某个字符串的md5值。除了MD5还有SHA-1、SHA-2、SHA-3等，只要替换掉getInstance()中的参数即可
+     *
+     * @param value
+     * @return
+     */
+    public static String string2MD5(String value) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.reset();
@@ -234,9 +237,63 @@ public class CodeUtil {
         }
     }
 
+    /**
+     * 使用 key 对 data 进行MAC算法加密。参数HMAC_ALGORITHM可以为：
+     * HmacMD2、HmacMD4、HmacMD5、HmacSHA1、HmacSHA224、HmacSHA256、HmacSHA384、HmacSHA512
+     * @param key
+     * @param data
+     * @return
+     */
+    public static String string2Hmac(String key, String data) {
+        String HMAC_ALGORITHM = "HmacSHA256";
+        try {
+            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), HMAC_ALGORITHM);
+            Mac mac = Mac.getInstance(HMAC_ALGORITHM);
+            mac.init(secretKeySpec);
+            byte[] bytes = mac.doFinal(data.getBytes());
+            String s = bytes2Hex(bytes);
+            return s;
+        } catch (GeneralSecurityException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    /**
+     * Base64加密
+     * @param bytes
+     * @return
+     */
+    public static String encodeBase64(byte[] bytes) {
+        Preconditions.checkNotNull(bytes, "data参数应不为空");
+        return new String(Base64.encodeBase64(bytes), DEFAULT_CHARSET);
+    }
+
+    /**
+     * Base64解密
+     * @param str
+     * @return
+     */
+    public static String decodeBase64(String str) {
+        Preconditions.checkNotNull(str, "str参数应不为空");
+        return new String(Base64.decodeBase64(str), DEFAULT_CHARSET);
+    }
+
+    /**
+     * Base64解密
+     * @param bytes
+     * @return
+     */
+    public static String decodeBase64(byte[] bytes) {
+        Preconditions.checkNotNull(bytes, "str参数应不为空");
+        return new String(Base64.decodeBase64(bytes), DEFAULT_CHARSET);
+    }
+
+    /////////////////////////////////////////////////////////
+
+
     public static void main(String[] args) {
         byte[] bytes = hex2Bytes("12345678");
-        String hexCRCCode = hexMD5("12345678");
+        String hexCRCCode = string2MD5("12345678");
         logger.info("str");
     }
 
