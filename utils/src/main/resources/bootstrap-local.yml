@@ -59,3 +59,8 @@ lwm2m:
   port: 5683
   #用于识别客户端，类似clientid
   endpoint: "1111"
+
+#rsa
+jwt:
+  priKeyPath: jwt/pri.key
+  pubKeyPath: jwt/pub.key
