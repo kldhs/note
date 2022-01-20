@@ -85,14 +85,14 @@ public class Test {
     /**
      * kafka 测试方法
      */
-    public  void kafkaTest() {
+    public void kafkaTest() {
         kafkaProducerService.kafkaSend();
     }
 
     /**
      * mysql 测试方法
      */
-    public  void mysqlTest() {
+    public void mysqlTest() {
         DeviceReportInfo deviceReportInfo = new DeviceReportInfo();
         deviceReportInfo.setProductId(11111111111111L);
         deviceReportInfo.setDeviceId("1");
@@ -103,5 +103,6 @@ public class Test {
         deviceReportInfo.setV5("ee");
         deviceReportInfoService.insertIntoDeviceReportInfo(deviceReportInfo);
     }
+
 
 }

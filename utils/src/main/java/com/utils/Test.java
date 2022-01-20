@@ -1,6 +1,8 @@
 package com.utils;
 
 import com.utils.aop.UserAction;
+import com.utils.rsa.RSAConfig;
+import com.utils.rsa.RSAEncrypt;
 import com.utils.spring.SpringBootUtil;
 import com.utils.threadpool.executorsandspring.AsyncService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +11,12 @@ import org.eclipse.leshan.core.model.InvalidModelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.UUID;
 
 /**
@@ -20,13 +25,17 @@ import java.util.UUID;
  * 测试方法
  */
 @Slf4j
+@Component
 public class Test {
     private static Logger logger = LoggerFactory.getLogger(Test.class);
     private static Logger logger1 = LoggerFactory.getLogger("login");
     private static Logger logger2 = LoggerFactory.getLogger("register");
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
-
+    @Resource
+    RSAEncrypt rsaEncrypt;
+    @Resource
+    RSAConfig rsaConfig;
     /**
      * 异步线程池，测试方法
      */
@@ -71,11 +80,11 @@ public class Test {
     }
 
     /**
-     * kafka 测试方法
+     * rsa 测试方法
      */
-    public static void kafkaTest() {
-        KafkaTemplate<String, Object> kafkaTemplate = SpringBootUtil.getBean(KafkaTemplate.class);
-        kafkaTemplate.send("pushDetail_update", "pushDetail_update", "qwsdfgasdf");
+    public  void rsaTest() throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
+        Object key = rsaEncrypt.getKey(true, false, rsaConfig.getPubKeyPath());
+        System.out.println(key);
     }
 
 }

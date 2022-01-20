@@ -1,5 +1,6 @@
 package com.utils;
 
+import com.utils.spring.SpringBootUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -8,6 +9,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @SpringBootApplication(
         exclude= {DataSourceAutoConfiguration.class}
@@ -25,12 +30,11 @@ public class UtilsApplication extends SpringBootServletInitializer {
         return application.sources(UtilsApplication.class);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
         ConfigurableApplicationContext context = SpringApplication.run(UtilsApplication.class, args);
         System.err.println(context.getEnvironment());
-        Test.kafkaTest();
-
-
+        Test test = SpringBootUtil.getBean(Test.class);
+        test.rsaTest();
     }
 
 

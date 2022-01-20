@@ -282,9 +282,19 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/WEB-INF/path.jar</systemPath>
         </dependency>-->
+
+        <!--引用自建项目打包成的jar-->
+        <!--<dependency>
+            <groupId>com.iot</groupId>
+            <artifactId>note</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>-->
+
     </dependencies>
 
     <build><!--编译设置，全局配置（位于project下）针对整个项目的配置；不同profile配置（位于profiles）针对不同的profile配置-->
+           <!--完全注释掉<build>可以打包成工具类的jar-->
         <plugins><!--编译过程中使用的插件-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>

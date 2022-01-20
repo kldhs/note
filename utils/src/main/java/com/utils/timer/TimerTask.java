@@ -15,7 +15,7 @@ import java.util.Date;
  */
 //标注一个类为Spring容器的Bean
 @Component
-@PropertySource("classpath:src/main/timer-task.properties")
+@PropertySource("classpath:timer-task.properties")
 public class TimerTask {
     private static Logger logger = LoggerFactory.getLogger(TimerTask.class);
     @Scheduled(cron = "${taskTime}")
