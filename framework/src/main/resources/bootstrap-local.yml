@@ -3,10 +3,9 @@ server:
     8089
 
 spring:
-
-  cloud:
-    config:
-      enabled: false
+#  cloud:
+#    config:
+#      enabled: false
 
   kafka:
     bootstrap-servers: 127.0.0.1:9092
@@ -40,11 +39,11 @@ spring:
 
   datasource:
     name: druidDataSource
-#    type: com.zaxxer.hikari.HikariDataSource
-    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.zaxxer.hikari.HikariDataSource
+#    type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url:  jdbc:mysql://127.0.0.1:3306/iot_device?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false&autoReconnect=true&failOverReadOnly=false
+      url:  jdbc:mysql://127.0.0.1:3306/iot_device?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&allowPublicKeyRetrieval=true
       username: root
       password: root
       filters: stat,config

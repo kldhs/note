@@ -128,17 +128,6 @@ public class RSAEncrypt {
         }
     }
 
-    /**
-     * BCryptPasswordEncoder 类
-     */
-    private void bCryptPasswordEncoder() {
-        String message = "asdfghjkl";
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
-        String enPassword = bCryptPasswordEncoder.encode(message);
-        boolean matches = bCryptPasswordEncoder.matches(message, enPassword);
-        System.out.println(matches);
-    }
-
     public static void main(String[] args) throws Exception {
         //生成公钥和私钥
         Map<String, String> keyPair = getKeyPair();

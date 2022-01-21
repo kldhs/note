@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -288,6 +289,16 @@ public class CodeUtil {
         return new String(Base64.decodeBase64(bytes), DEFAULT_CHARSET);
     }
 
+    /**
+     * BCryptPasswordEncoder 类
+     */
+    private void bCryptPasswordEncoder() {
+        String message = "asdfghjkl";
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+        String enPassword = bCryptPasswordEncoder.encode(message);
+        boolean matches = bCryptPasswordEncoder.matches(message, enPassword);
+        System.out.println(matches);
+    }
     /////////////////////////////////////////////////////////
 
 
