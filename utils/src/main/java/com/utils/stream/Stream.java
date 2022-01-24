@@ -1,5 +1,7 @@
 package com.utils.stream;
 
+import org.apache.kafka.common.protocol.types.Field;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,184 +18,122 @@ import java.util.stream.Collectors;
  */
 
 
-
 public class Stream {
-    public static void main(String args[]){
-        System.out.println("使用 Java 7: ");
+    private String name;
+    private int age;
+    private String gender;
+    private int height;
+    private int weight;
 
-        // 计算空字符串
-        List<String> strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
-        System.out.println("列表: " +strings);
-        long count = getCountEmptyStringUsingJava7(strings);
+    public Stream(String name, int age, String gender, int height, int weight) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.height = height;
+        this.weight = weight;
+    }
 
-        System.out.println("空字符数量为: " + count);
-        count = getCountLength3UsingJava7(strings);
+    public String getName() {
+        return name;
+    }
 
-        System.out.println("字符串长度为 3 的数量为: " + count);
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        // 删除空字符串
-        List<String> filtered = deleteEmptyStringsUsingJava7(strings);
-        System.out.println("筛选后的列表: " + filtered);
+    public int getAge() {
+        return age;
+    }
 
-        // 删除空字符串，并使用逗号把它们合并起来
-        String mergedString = getMergedStringUsingJava7(strings,", ");
-        System.out.println("合并字符串: " + mergedString);
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return "Stream{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                '}';
+    }
+
+    public static void main(String args[]) {
+        ArrayList<Stream> streams = new ArrayList<>();
+        streams.add(new Stream("小张", 12, "男", 151, 40));
+        streams.add(new Stream("小红", 12, "女", 152, 40));
+        List<String> strings = Arrays.asList("1234", "", "3432", "0743", "524", "", "785");
         List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+        System.out.println("streams "+streams);
 
-        // 获取列表元素平方数
-        List<Integer> squaresList = getSquares(numbers);
-        System.out.println("平方数列表: " + squaresList);
-        List<Integer> integers = Arrays.asList(1,2,13,4,15,6,17,8,19);
+        String collect = streams.stream().map(p -> p.getName()).collect(Collectors.joining(","));
+        System.out.println("collect : " + collect);
 
-        System.out.println("列表: " +integers);
-        System.out.println("列表中最大的数 : " + getMax(integers));
-        System.out.println("列表中最小的数 : " + getMin(integers));
-        System.out.println("所有数之和 : " + getSum(integers));
-        System.out.println("平均数 : " + getAverage(integers));
-        System.out.println("随机数: ");
+        String collect1 = streams.stream().map(Objects::toString).collect(Collectors.joining(","));
+        System.out.println("collect1 : " + collect1);
 
-        // 输出10个随机数
-        Random random = new Random();
+        int[] ints = strings.stream().mapToInt(p -> {
+            if (p.equals("")) {
+                p = "0";
+            }
+            return Integer.parseInt(p);
+        }).toArray();
+        String collect2 = Arrays.stream(ints).mapToObj(Integer::toString).collect(Collectors.joining(","));
+        System.out.println("collect2 : " + collect2);
 
-        for(int i=0; i < 10; i++){
-            System.out.println(random.nextInt());
-        }
+        List<String> collect3 = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
+        System.out.println("collect3 : " + collect3);
 
-        System.out.println("使用 Java 8: ");
-        System.out.println("列表: " +strings);
+        List<Integer> collect4 = numbers.stream().map(i -> i * i).distinct().collect(Collectors.toList());
+        System.out.println("collect4 : " + collect4.toString());
 
-        count = strings.stream().filter(string->string.isEmpty()).count();
-        System.out.println("空字符串数量为: " + count);
+        long count = strings.stream().filter(string -> string.isEmpty()).count();
+        System.out.println("count : " + count);
 
-        count = strings.stream().filter(string -> string.length() == 3).count();
-        System.out.println("字符串长度为 3 的数量为: " + count);
+        long count1 = strings.stream().filter(string -> string.length() == 3).count();
+        System.out.println("count1 : " + count1);
 
-        filtered = strings.stream().filter(string ->!string.isEmpty()).collect(Collectors.toList());
-        System.out.println("筛选后的列表: " + filtered);
+        // 并行处理
+        long count2 = strings.parallelStream().filter(string -> string.isEmpty()).count();
+        System.out.println("count2 : " + count2);
 
-        mergedString = strings.stream().filter(string ->!string.isEmpty()).collect(Collectors.joining(", "));
-        System.out.println("合并字符串: " + mergedString);
-
-        squaresList = numbers.stream().map( i ->i*i).distinct().collect(Collectors.toList());
-        System.out.println("Squares List: " + squaresList);
-        System.out.println("列表: " +integers);
-
-        IntSummaryStatistics stats = integers.stream().mapToInt((x) ->x).summaryStatistics();
-
+        IntSummaryStatistics stats = numbers.stream().mapToInt((x) -> x).summaryStatistics();
         System.out.println("列表中最大的数 : " + stats.getMax());
         System.out.println("列表中最小的数 : " + stats.getMin());
         System.out.println("所有数之和 : " + stats.getSum());
         System.out.println("平均数 : " + stats.getAverage());
-        System.out.println("随机数: ");
 
-        random.ints().limit(10).sorted().forEach(System.out::println);
-
-        // 并行处理
-        count = strings.parallelStream().filter(string -> string.isEmpty()).count();
-        System.out.println("空字符串的数量为: " + count);
+        new Random().ints().limit(10).sorted().forEach(p -> {
+            System.out.println("随机数 ：" + p);
+        });
     }
 
-    private static int getCountEmptyStringUsingJava7(List<String> strings){
-        int count = 0;
 
-        for(String string: strings){
-
-            if(string.isEmpty()){
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private static int getCountLength3UsingJava7(List<String> strings){
-        int count = 0;
-
-        for(String string: strings){
-
-            if(string.length() == 3){
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private static List<String> deleteEmptyStringsUsingJava7(List<String> strings){
-        List<String> filteredList = new ArrayList<String>();
-
-        for(String string: strings){
-
-            if(!string.isEmpty()){
-                filteredList.add(string);
-            }
-        }
-        return filteredList;
-    }
-
-    private static String getMergedStringUsingJava7(List<String> strings, String separator){
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for(String string: strings){
-
-            if(!string.isEmpty()){
-                stringBuilder.append(string);
-                stringBuilder.append(separator);
-            }
-        }
-        String mergedString = stringBuilder.toString();
-        return mergedString.substring(0, mergedString.length()-2);
-    }
-
-    private static List<Integer> getSquares(List<Integer> numbers){
-        List<Integer> squaresList = new ArrayList<Integer>();
-
-        for(Integer number: numbers){
-            Integer square = new Integer(number.intValue() * number.intValue());
-
-            if(!squaresList.contains(square)){
-                squaresList.add(square);
-            }
-        }
-        return squaresList;
-    }
-
-    private static int getMax(List<Integer> numbers){
-        int max = numbers.get(0);
-
-        for(int i=1;i < numbers.size();i++){
-
-            Integer number = numbers.get(i);
-
-            if(number.intValue() > max){
-                max = number.intValue();
-            }
-        }
-        return max;
-    }
-
-    private static int getMin(List<Integer> numbers){
-        int min = numbers.get(0);
-
-        for(int i=1;i < numbers.size();i++){
-            Integer number = numbers.get(i);
-
-            if(number.intValue() < min){
-                min = number.intValue();
-            }
-        }
-        return min;
-    }
-
-    private static int getSum(List numbers){
-        int sum = (int)(numbers.get(0));
-
-        for(int i=1;i < numbers.size();i++){
-            sum += (int)numbers.get(i);
-        }
-        return sum;
-    }
-
-    private static int getAverage(List<Integer> numbers){
-        return getSum(numbers) / numbers.size();
-    }
 }
 
