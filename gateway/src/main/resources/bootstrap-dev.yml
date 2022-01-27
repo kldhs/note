@@ -1,0 +1,24 @@
+server:
+  port: 7102
+file:
+  encoding: utf-8
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: tota-gateway
+  cloud:
+    nacos:
+      #配置管理
+      config:
+        #开发环境 服务器启动使用ip:port和namespace
+        server-addr: 172.17.16.11:8848
+        namespace: e130327a-af28-400e-991c-953590602f6d
+        enabled: true #是否使用 nacos 缺省值true
+        file-extension: yml #data id后缀
+        group: tota  #组
+        #服务发现
+        extension-configs:
+          - dataId: server-discovery.yml
+            group: public-config
+            refresh: true
