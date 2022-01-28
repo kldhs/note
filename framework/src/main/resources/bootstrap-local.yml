@@ -7,17 +7,15 @@ spring:
 #    config:
 #      enabled: false
 
+#kafka
   kafka:
     bootstrap-servers: 127.0.0.1:9092
-    #kafka消费者配置
     consumer:
       enable-auto-commit: false
       auto-offset-reset: earliest
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       max-poll-records: 1000
-    #      group-id: test
-    #kafka生产者配置
     producer:
       retries: 0  #是否重试，默认为0，不重试
       batch-size: 16384 #批处理消息记录的字节数
@@ -26,6 +24,7 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer  #消息的序列化类别。默认编码器输入一个字节byte[]，然后返回相同的字节byte[]
       acks: 1 #在offset  commit可以接受之前，需要设置确认的数目，一般不需要更改
 
+#redis
   redis:
     host: 127.0.0.1
     jedis:
@@ -37,6 +36,7 @@ spring:
     port: 6379
     timeout: 2000
 
+#database
   datasource:
     name: druidDataSource
     type: com.zaxxer.hikari.HikariDataSource
@@ -61,10 +61,10 @@ spring:
       time-between-eviction-runs-millis: 2000
       validation-query: SELECT 1 FROM DUAL
 
+#mybatis
 mybatis:
   mapperLocations: classpath*:mapper/*.xml
   typeAliasesPackage: org.spring.springboot.model
-
 
 #日志
 logging:

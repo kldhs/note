@@ -101,7 +101,12 @@ public class Test {
         deviceReportInfo.setV3("cc");
         deviceReportInfo.setV4("dd");
         deviceReportInfo.setV5("ee");
+        deviceReportInfo.setValueDefineVersion(false);
         deviceReportInfoService.insertIntoDeviceReportInfo(deviceReportInfo);
+        deviceReportInfo.setId(132L);
+        deviceReportInfo.setV5("1111111111111111");
+        Integer integer = deviceReportInfoService.updateByPrimaryKey(deviceReportInfo);
+        System.out.println("1111111111111111");
     }
 
 

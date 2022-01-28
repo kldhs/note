@@ -20,4 +20,8 @@ public class DeviceReportInfoServiceImpl implements DeviceReportInfoService {
     public void insertIntoDeviceReportInfo(DeviceReportInfo deviceReportInfo){
         deviceReportInfoMapper.insertSelective(deviceReportInfo);
     }
+
+    public Integer updateByPrimaryKey(DeviceReportInfo deviceReportInfo){
+        return deviceReportInfoMapper.updateByPrimaryKey(deviceReportInfo);
+    }
 }

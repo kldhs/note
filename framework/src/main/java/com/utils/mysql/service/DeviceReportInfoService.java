@@ -10,4 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface DeviceReportInfoService {
     void insertIntoDeviceReportInfo(DeviceReportInfo deviceReportInfo);
+
+    Integer updateByPrimaryKey(DeviceReportInfo deviceReportInfo);
 }

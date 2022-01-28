@@ -3,8 +3,12 @@ spring:
     name: iot-udp-api
   cloud:
     nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: local
+        namespace: 17c2c6fb-cc58-4ee6-9fa5-e465987a3c33
       config:
-        server-addr: 1.116.234.137:8848
+        server-addr: 127.0.0.1:8848
         group: local
         file-extension: yaml
         namespace: 17c2c6fb-cc58-4ee6-9fa5-e465987a3c33
