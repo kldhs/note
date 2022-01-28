@@ -7,9 +7,10 @@
     <packaging>pom</packaging>
 
     <modules>
-    <module>utils</module>
-    <module>framework</module>
-</modules>
+        <module>utils</module>
+        <module>framework</module>
+        <module>gateway</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -27,8 +28,6 @@
         <!-- dependencies version -->
         <californium.version>3.0.0-M4</californium.version>
     </properties>
-
-
 
 
 </project>
