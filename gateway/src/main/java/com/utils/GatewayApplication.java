@@ -10,12 +10,6 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.util.pattern.PathPatternParser;
 
 /**
- * <p>项目名称: rds-cloud-framework</p>
- * <p>描述: [类型描述] </p>
- * <p>创建时间: 2020/1/6 14:18 </p>
- *
- * @author shichangcheng
- * @version V1.0
  */
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -26,18 +20,24 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-
+    /**
+     * 处理跨域请求
+     * @return
+     */
     @Bean
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedMethod("*");
-        config.addAllowedOrigin("*");
+        // 允许的请求头
         config.addAllowedHeader("*");
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsWebFilter(source);
+        // 允许的请求源 （如：http://localhost:8080）
+        config.addAllowedOrigin("*");
+        // 允许的请求方法 ==> GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE
+        config.addAllowedMethod("*");
+        // URL 映射 （如： /admin/**）
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", config);
+        CorsWebFilter corsWebFilter = new CorsWebFilter(urlBasedCorsConfigurationSource);
+        return corsWebFilter;
     }
 }
 

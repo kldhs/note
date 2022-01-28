@@ -21,12 +21,6 @@ import java.util.function.Consumer;
 
 
 /**
- * <p>项目名称: rds-cloud-framework</p>
- * <p>描述: [Gateway 拦截器，Pre Filter，用于拦截校验并解析Token，支持根据url忽略校验] </p>
- * <p>创建时间: 2020/1/6 14:24 </p>
- *
- * @author shichangcheng
- * @version V1.0
  */
 @Slf4j
 @Component

@@ -11,12 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>项目名称: rds-cloud-framework</p>
- * <p>描述: [类型描述] </p>
- * <p>创建时间: 2020/1/6 16:33 </p>
- *
- * @author shichangcheng
- * @version V1.0
  */
 @RestController
 @RequestMapping("/fallback")

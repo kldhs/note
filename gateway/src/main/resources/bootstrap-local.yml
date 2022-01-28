@@ -1,24 +1,122 @@
+environment: local
 server:
-  port: 7102
-file:
-  encoding: utf-8
+  ssl:
+    enabled: false
+management:
+  security:
+    enabled: false
 spring:
-  main:
-    allow-bean-definition-overriding: true
-  application:
-    name: tota-gateway
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: NON_NULL
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      file-size-threshold: 100MB
+      max-file-size: 4GB
+      max-request-size: 4GB
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
   cloud:
-    nacos:
-      #配置管理
-      config:
-        #本地调试 启动使用ip:port和namespace
-        server-addr: 129.211.101.51:8848
-        namespace: 58daa941-fc5a-45d7-9965-1d8bc092902b
-        enabled: true #是否使用 nacos 缺省值true
-        file-extension: yml #data id后缀
-        group: tota  #组
-        #服务发现
-        extension-configs:
-          - dataId: server-discovery.yml
-            group: public-config
-            refresh: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      enabled: true
+      routes:
+        # 推送
+        - id:  tota-shared-log
+          uri: lb://tota-push
+          predicates:
+            - Path=/mgapi/push/**
+          filters:
+            - name: Hystrix
+              args:
+                name: tota-push
+                fallbackUri: forward:/fallback
+            - name: StripPrefix
+              args:
+                parts: 2
+            - name: SessionAccess
+              args:
+                ignorePath:
+                  - /static
+                  - /client-api
+                  - /busi
+                  - /zuul
+                  - swagger
+                  - /v2/api-docs
+                  - /csrf
+                  - /taskpush/thirdParty
+        - id: tota-delta-online
+          uri: lb://tota-delta-online
+          predicates:
+            - Path=/mgapi/delta-online/**
+          filters:
+            - name: Hystrix
+              args:
+                name: tota-delta-online
+                fallbackUri: forward:/fallback
+            - name: StripPrefix
+              args:
+                parts: 2
+            - name: SessionAccess
+              args:
+                ignorePath:
+                  - swagger
+                  - /v2/api-docs
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 400000
+    tota-push:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2401000
+    tota-delta-online:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2401000
+
+ribbon:
+  ConnectTimeout: 500000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  MaxHttpConnectionsPerHosts: 200
+  OkToRetryOnAllOperations: true
+  ReadTimeout: 1200000
+  okToRetryOnAllErrors: true
+tota-base:
+  ribbon:
+    ConnectTimeout: 500
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1
+    OkToRetryOnAllOperations: true
+    ReadTimeout: 1200000
+tota-push:
+  ribbon:
+    ConnectTimeout: 300000
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1
+    OkToRetryOnAllOperations: true
+    ReadTimeout: 1200000
+tota-delta-online:
+  ribbon:
+    ConnectTimeout: 300000
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1
+    OkToRetryOnAllOperations: true
+    ReadTimeout: 1200000
+
+feignservice:
+  address:
+    upgrade: tota-upgrade
+gate:
+  ignore:
+    startWith: /mgapi,/static,/client-api,/busi,/zuul,/asop
