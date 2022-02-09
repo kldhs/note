@@ -4,7 +4,10 @@ server:
     enabled: false
 management:
   security:
-    enabled: false
+    user:
+      name : admin
+      password : admin
+      roles : ADMIN
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -92,13 +95,6 @@ ribbon:
   OkToRetryOnAllOperations: true
   ReadTimeout: 1200000
   okToRetryOnAllErrors: true
-tota-base:
-  ribbon:
-    ConnectTimeout: 500
-    MaxAutoRetries: 0
-    MaxAutoRetriesNextServer: 1
-    OkToRetryOnAllOperations: true
-    ReadTimeout: 1200000
 tota-push:
   ribbon:
     ConnectTimeout: 300000

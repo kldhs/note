@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 
 
 /**
+ * 自定义HystrixGatewayFilterFactory校验token
  */
 @Slf4j
 @Component

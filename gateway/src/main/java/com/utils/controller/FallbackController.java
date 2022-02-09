@@ -11,14 +11,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
  */
 @RestController
-@RequestMapping("/fallback")
 @Slf4j
 public class FallbackController {
 
-    @RequestMapping("")
-    public Object fallback(ServerWebExchange exchange) {
+    /**
+     * 进入Hystrix熔断降级机制时，就会调用该方法
+     *
+     * @param exchange
+     * @return
+     */
+    @RequestMapping("/fallback")
+    public Object fallback(ServerWebExchange exchange, Throwable throwable) {
         Map<String, Object> result = new HashMap<>();
         Exception exception = exchange.getAttribute(ServerWebExchangeUtils.HYSTRIX_EXECUTION_EXCEPTION_ATTR);
         ServerWebExchange delegate = ((ServerWebExchangeDecorator) exchange).getDelegate();
