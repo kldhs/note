@@ -497,6 +497,7 @@ public class DateUtil {
     public static int getTomorrowBegin() {
         long now = System.currentTimeMillis() / 1000;
         long daySecond = 60 * 60 * 24;
+        //东八区
         long dayTime = now - (now + 8 * 3600) % daySecond + 1 * daySecond;
         int exp = (int) (dayTime - (System.currentTimeMillis() / 1000));
         return exp;

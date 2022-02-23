@@ -90,6 +90,7 @@ mqtt:
 
 #lwm2m
 lwm2m:
-  ip: "127.0.0.1"
+#  ip: "127.0.0.1"
+  ip: "221.228.214.70"
   port: 5683
   endpoint: "1111"  #用于识别客户端，类似clientid
