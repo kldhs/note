@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 日志级别:TRACE < DEBUG < INFO < WARN < ERROR < FATAL -->
-<!--每个类里面都需要生成Logger的实例：
+<!--每个类里面都可以生成Logger的实例：
     LoggerFactory.getLogger(OpenRegisterController.class)
     LoggerFactory.getLogger("logger name")-->
 <!-- scan:当此属性设置为true时，配置文档如果发生改变，将会被重新加载，默认值为true -->
@@ -56,15 +56,17 @@
             <charset>UTF-8</charset>
         </encoder>
         <!--日志滚动策略,大小、日期-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--日志文件名称-->
-            <fileNamePattern>${logPath}/util_%d{yyyyMMdd}.%i.log</fileNamePattern>
-            <!--大小，名称需要加上 %i -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>300MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件名称。格式一定要是“.%d{yyyy-MM-dd}.”过期日志才会删除，名称需要加上 .%i 才会回滚-->
+            <fileNamePattern>${logPath}/util.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--大小-->
+            <MaxFileSize>300MB</MaxFileSize>
             <!--天数-->
-            <maxHistory>15</maxHistory>
+            <MaxHistory>3</MaxHistory>
+            <!--日志文件的总大小-->
+            <totalSizeCap>20GB</totalSizeCap>
+            <!--应用启动时删除历史日志-->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <!--是否为安全写入模式，为ture则日志会被安全的写入文件，即使其他FileAppender同时做写入操作效率低。
         默认为false-->
@@ -82,16 +84,17 @@
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logPath}/register/iot_register_%d{yyyyMMdd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>300MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <fileNamePattern>${logPath}/register/iot_register.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>300MB</maxFileSize>
             <maxHistory>15</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <prudent>true</prudent>
     </appender>
 
-    <!-- 配置不同类输出到不同日志文件中，和上面的文件输出一样只是name不同，配置的logger元素不同-->
+    <!-- 配置不同类输出到不同日志文件中，和上面的文件输出一样只是name不同，配置的logger元素不同，
+    获取日志对象时通过getLogger("login")来获取-->
     <appender name="forFile_login" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <encoder>
@@ -101,11 +104,11 @@
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logPath}/login/iot_login_%d{yyyyMMdd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>300MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <fileNamePattern>${logPath}/login/iot_login.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>300MB</maxFileSize>
             <maxHistory>15</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <prudent>true</prudent>
     </appender>
@@ -121,6 +124,7 @@
     <logger name="org.apache.shiro" level="WARN" additivity="true"></logger>
     <logger name="freemarker" level="INFO" additivity="true"></logger>
     <logger name="druid.sql.ResultSet" level="INFO" additivity="true"></logger>
+
     <!--将定义的输出到不同日志文件的appender放入logger元素中，分文件输出日志时必须配置此项，
     获取日志对象时通过getLogger("logger name")来获取-->
     <logger name="login" level="INFO" additivity="false">
