@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 @Configuration
 public class MqttClientService {
-    private static Logger logger= LoggerFactory.getLogger(MqttClientService.class);
+    private static Logger logger = LoggerFactory.getLogger(MqttClientService.class);
     @Autowired
     MqttConfigPoJo mqttConfigPoJo;
 
@@ -25,6 +25,8 @@ public class MqttClientService {
      * MqttClient对象
      */
     public static Hashtable<String, MqttClient> mqttClientTable = new Hashtable<>();
+
+    public static Hashtable<String, MqttAsyncClient> mqttAsyncClientTable = new Hashtable<>();
     /**
      * 连接设置
      */
@@ -46,11 +48,13 @@ public class MqttClientService {
             // 设置会话心跳时间，服务器会每隔一段时间向客户端发送个消息判断客户
             // 端是否在线，但这个方法并没有重连的机制（单位为秒）
             mqttConnectOptions.setKeepAliveInterval(this.mqttConfigPoJo.getKeepAliveInterval());
+            //最大飞行数，在高流量时增加此值
+            mqttConnectOptions.setMaxInflight(this.mqttConfigPoJo.maxInflight);
         }
     }
 
     /**
-     * 连接
+     * 同步客户端连接
      *
      * @param clientid
      * @return
@@ -76,6 +80,58 @@ public class MqttClientService {
             mqttClient = MqttClientService.mqttClientTable.get(clientid);
         }
         return mqttClient;
+    }
+
+    /**
+     * 异步客户端连接
+     *
+     * @param clientid
+     * @return
+     * @throws MqttException
+     */
+    public MqttAsyncClient getMqttAsyncClient(String clientid, String topic) {
+        synchronized (clientid) {
+            int i = 10;
+            try {
+                MqttAsyncClient mqttAsyncClient;
+                if (MqttClientService.mqttClientTable.get(clientid) == null) {
+                    //如果该 clientid 对应的 MqttClient 不存在，则创建MqttClient对象
+                    mqttAsyncClient = new MqttAsyncClient("tcp://" + this.mqttConfigPoJo.getIp() + ":" + this.mqttConfigPoJo.getPort(),
+                            clientid, new MemoryPersistence());
+                    creatMqttClientService();
+                    mqttAsyncClient.setCallback(new MqttAsyncClientCallback(mqttAsyncClient));
+                    //设置遗愿消息，此客户端离线时，会向topic主题发送最后的遗愿消息，订阅者会收到此遗愿消息。
+                    if (topic != null) {
+                        //mqttConnectOptions.setWill(mqttAsyncClient.getTopic(topic),
+                        //        ("MqttClient : " + mqttAsyncClient + "is offline").getBytes(), 2, true);
+                    }
+                    mqttAsyncClient.connect(mqttConnectOptions).waitForCompletion();
+                    MqttClientService.mqttAsyncClientTable.put(clientid, mqttAsyncClient);
+                } else {
+                    //如果该 clientid 对应的 MqttClient 存在，则直接从HashTable中获取MqttClient对象
+                    mqttAsyncClient = MqttClientService.mqttAsyncClientTable.get(clientid);
+                }
+                return mqttAsyncClient;
+            } catch (Exception e) {
+                logger.error("getMqttClient error", e);
+                //订阅失败之后，间隔20s重新订阅
+                i--;
+                try {
+                    Thread.sleep(20 * 1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                if (i <= 0) {
+                    i = 10;
+                    return null;
+                }
+                logger.error("getMqttClient failure -> This clientid : " + clientid
+                        + " , topic : " + topic + " , i : " + i);
+                MqttClientService.mqttClientTable.remove(clientid);
+                getMqttAsyncClient(clientid, topic);
+            }
+            return null;
+        }
     }
 
     /**
@@ -117,8 +173,8 @@ public class MqttClientService {
             MqttClient mqttClient = getMqttClient(clientid, willMessageTopic);
             mqttClient.subscribe(topic, qos);
             logger.info("subscribe message -> This clientid : " + clientid
-                    + " , topic : "+ Arrays.asList(topic).stream().map(String::valueOf).collect(Collectors.joining("、"))
-                    + " , qos : " + Arrays.stream(qos).boxed().map(i -> i.toString()) .collect(Collectors.joining("、")));
+                    + " , topic : " + Arrays.asList(topic).stream().map(String::valueOf).collect(Collectors.joining("、"))
+                    + " , qos : " + Arrays.stream(qos).boxed().map(i -> i.toString()).collect(Collectors.joining("、")));
         } catch (Exception e) {
             e.printStackTrace();
         }

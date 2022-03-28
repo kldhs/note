@@ -17,6 +17,7 @@ public class MqttConfigPoJo {
     protected String passWord;
     protected int connectionTimeout;
     protected int keepAliveInterval;
+    protected int maxInflight;
 
     public String getIp() {
         return ip;
@@ -72,5 +73,13 @@ public class MqttConfigPoJo {
 
     public void setKeepAliveInterval(int keepAliveInterval) {
         this.keepAliveInterval = keepAliveInterval;
+    }
+
+    public int getMaxInflight() {
+        return maxInflight;
+    }
+
+    public void setMaxInflight(int maxInflight) {
+        this.maxInflight = maxInflight;
     }
 }
