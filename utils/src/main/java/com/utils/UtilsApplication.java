@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication(
         exclude= {DataSourceAutoConfiguration.class}
@@ -31,11 +33,37 @@ public class UtilsApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException {
+
+
         ConfigurableApplicationContext context = SpringApplication.run(UtilsApplication.class, args);
         System.err.println(context.getEnvironment());
-        Test test = SpringBootUtil.getBean(Test.class);
-        test.rsaTest();
+        while (true) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Test.aopTest();
+        }
     }
+
+    static List<List<Integer>> res = new ArrayList<List<Integer>>();
+
+    private static void helper(ArrayList<Integer> candidates, Integer target, ArrayList<Integer> list, int index) {
+        if( target == 0){
+            if(!res.contains(list)){
+                res.add(new ArrayList<>(list));
+            }
+        }
+        for (int i = index; i < candidates.size(); i++) {
+            if(candidates.get(i) <= target){
+                list.add(candidates.get(i));
+                helper(candidates, target-candidates.get(i), list, i+1);
+                list.remove(list.size()-1);
+            }
+        }
+    }
+
 
 
 

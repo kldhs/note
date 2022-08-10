@@ -90,10 +90,18 @@ public class Stream {
         streams.add(new Stream("小红", 12, "女", 152, 40));
         List<String> strings = Arrays.asList("1234", "", "3432", "0743", "524", "", "785");
         List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
-        System.out.println("streams "+streams);
+        System.out.println("streams " + streams);
 
-        String collect = streams.stream().map(p -> p.getName()).collect(Collectors.joining(","));
-        System.out.println("collect : " + collect);
+        String collect0 = streams.stream().map(p -> p.getName()).collect(Collectors.joining(","));
+        System.out.println("collect : " + collect0);
+
+        streams.stream().sorted(Comparator.comparing(Stream::getAge)).collect(Collectors.groupingBy(Stream::getGender));
+
+
+        new Random().ints().limit(10).sorted().forEach(p -> {
+            System.out.println("随机数 ：" + p);
+        });
+
 
         String collect1 = streams.stream().map(Objects::toString).collect(Collectors.joining(","));
         System.out.println("collect1 : " + collect1);
@@ -117,7 +125,15 @@ public class Stream {
         System.out.println("count : " + count);
 
         long count1 = strings.stream().filter(string -> string.length() == 3).count();
+        long count3 = strings.stream().filter(string -> {
+            if (string.length() == 3) {
+                return false;
+            } else {
+                return true;
+            }
+        }).count();
         System.out.println("count1 : " + count1);
+        System.out.println("count3 : " + count3);
 
         // 并行处理
         long count2 = strings.parallelStream().filter(string -> string.isEmpty()).count();

@@ -283,13 +283,7 @@
             <systemPath>${project.basedir}/src/main/WEB-INF/path.jar</systemPath>
         </dependency>-->
 
-        <!--引用自建项目打包成的jar-->
-        <!--<dependency>
-            <groupId>com.iot</groupId>
-            <artifactId>note</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>-->
+
 
     </dependencies>
 

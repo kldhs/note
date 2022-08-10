@@ -5,12 +5,13 @@ import com.utils.lwm2m.clinet.client.Lwm2mClient;
 import com.utils.lwm2m.clinet.properties.Lwm2mConfigPoJo;
 import com.utils.mqtt.MqttClientService;
 import com.utils.mysql.model.entity.DeviceReportInfo;
-import com.utils.mysql.service.DeviceReportInfoService;
+//import com.utils.mysql.service.DeviceReportInfoService;
 import com.utils.redis.RedisService;
 import com.utils.spring.SpringBootUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.leshan.core.model.InvalidDDFFileException;
 import org.eclipse.leshan.core.model.InvalidModelException;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -28,25 +29,20 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class Test {
-    private static Logger logger = LoggerFactory.getLogger(Test.class);
-    private static Logger logger1 = LoggerFactory.getLogger("login");
-    private static Logger logger2 = LoggerFactory.getLogger("register");
-    @Resource
-    private KafkaTemplate<String, Object> kafkaTemplate;
-    @Resource
-    private RedisService redisService;
-    @Resource
-    KafkaProducerService kafkaProducerService;
-    @Resource
-    DeviceReportInfoService deviceReportInfoService;
 
+    public static void asyncTest() {
+        for (int i = 0; i <= 100; i++) {
+
+            System.err.println(i + "----end submit");
+        }
+    }
 
     /**
      * mqtt 测试方法
      */
-    public static void mqttTest() {
+    public  void mqttTest()  {
 
-        MqttClientService bean = SpringBootUtil.getBean(MqttClientService.class);
+        //MqttClientService bean = SpringBootUtil.getBean(MqttClientService.class);
         //try {
         //    bean.publish("7D0109000000001900000000298D43C16EE11500310001FFFF01298D43C10739476E1" +
         //                    "1F9C96C0000000019150B06C70B970DC711D08201CC000016CA00000000E2FFFF0B0000E104153F" +
@@ -61,53 +57,12 @@ public class Test {
         //    e.printStackTrace();
         //}
         //bean.publish("asdfghjklasdfghjkl", "asdfghjklasdfghjkl", "root/topic/testDx1", 2, true);
-        int[] Qos = {2};
-        String[] topic1 = {"root/topic/testDx1"};
-        String a = UUID.randomUUID().toString().replaceAll("-", "");
-        bean.subscribe(null, a, topic1, Qos);
+        //int[] Qos = {2};
+        //String[] topic1 = {"root/topic/testDx1"};
+        //String a = UUID.randomUUID().toString().replaceAll("-", "");
+        //bean.subscribe(null, a, topic1, Qos);
     }
 
-    /**
-     * lwm2m 客户端，测试方法
-     */
-    public static void lwm2mClientTest() throws InvalidModelException, InvalidDDFFileException, IOException {
-        Lwm2mConfigPoJo lwm2MConfigPoJo = SpringBootUtil.getBean(Lwm2mConfigPoJo.class);
-        new Lwm2mClient().createLwm2mClient(lwm2MConfigPoJo.getEndpoint());
-    }
-
-    /**
-     * lslf4j 日志输出，测试方法
-     */
-    public void redisTest() {
-        redisService.set();
-    }
-
-    /**
-     * kafka 测试方法
-     */
-    public void kafkaTest() {
-        kafkaProducerService.kafkaSend();
-    }
-
-    /**
-     * mysql 测试方法
-     */
-    public void mysqlTest() {
-        DeviceReportInfo deviceReportInfo = new DeviceReportInfo();
-        deviceReportInfo.setProductId(11111111111111L);
-        deviceReportInfo.setDeviceId("1");
-        deviceReportInfo.setV1("aa");
-        deviceReportInfo.setV2("bb");
-        deviceReportInfo.setV3("cc");
-        deviceReportInfo.setV4("dd");
-        deviceReportInfo.setV5("ee");
-        deviceReportInfo.setValueDefineVersion(false);
-        deviceReportInfoService.insertIntoDeviceReportInfo(deviceReportInfo);
-        deviceReportInfo.setId(132L);
-        deviceReportInfo.setV5("1111111111111111");
-        Integer integer = deviceReportInfoService.updateByPrimaryKey(deviceReportInfo);
-        System.out.println("1111111111111111");
-    }
 
 
 }

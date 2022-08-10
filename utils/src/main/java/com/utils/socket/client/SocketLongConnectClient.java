@@ -136,7 +136,7 @@ public class SocketLongConnectClient {
 
     public static void main(String[] args) {
         while (true) {
-            String aa = SocketLongConnectClient.sendMessageBySocketLongConnectClient("127.0.0.1", 1111, "");
+            String aa = SocketLongConnectClient.sendMessageBySocketLongConnectClient("127.0.0.1", 9000, "1111");
             logger.info(aa);
             try {
                 Thread.sleep(1000);

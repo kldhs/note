@@ -14,12 +14,12 @@ import org.slf4j.LoggerFactory;
  * @author YT
  * 2020-05-08
  */
-public class PublishSample {
-    private static Logger logger = LoggerFactory.getLogger(PublishSample.class);
+public class PublishSample1 {
+    private static Logger logger = LoggerFactory.getLogger(PublishSample1.class);
     public static void main(String[] args) {
 
         String topic = "mqtt/dn/1646189970/1";
-        String content = "";
+        String content = "hello 哈哈";
         int qos = 1;
         String broker = "tcp://127.0.0.1:1883";
             String clientId = "pushPublisherdota5AESDGfhtrdy";
@@ -41,12 +41,8 @@ public class PublishSample {
             MqttMessage message = new MqttMessage(content.getBytes());
             // 设置消息的服务质量
             message.setQos(qos);
-            message.setRetained(true);
             // 发布消息
             sampleClient.publish(topic, message);
-            String TOPIC = "/#";
-            int qos1 = 2;
-            sampleClient.subscribe(TOPIC, qos);
             // 断开连接
             sampleClient.disconnect();
             // 关闭客户端

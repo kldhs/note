@@ -80,17 +80,25 @@ threadpool:
 
 #mqtt
 mqtt:
-  ip: "1.116.213.98"
+  ip: 110.42.169.107
   port: 1883
   cleanSession: true
-  userName: "12_1111"
-  passWord: "123456"
+  userName: "abup"
+  passWord: "abup2021"
   connectionTimeout: 1000
-  keepAliveInterval: 20
+  keepAliveInterval: 10
+  subscribeTopics: mqtt/up/subProductKey/mid/#,$SYS/brokers/+/clients/#
+  publisheTopics: mqtt/dn/subProductKey/mid
+  subscriberId: pushSubscriberIdota5
+  publisherId: pushPublisherIdota5
+  subscribeQos: 2,2
+  publisheQos: 2
+  observePath: "19/0/0"
+  writePath: "19/1/0"
 
 #lwm2m
 lwm2m:
 #  ip: "127.0.0.1"
-  ip: "221.228.214.70"
+  ip: "127.0.0.1"
   port: 5683
   endpoint: "1111"  #用于识别客户端，类似clientid

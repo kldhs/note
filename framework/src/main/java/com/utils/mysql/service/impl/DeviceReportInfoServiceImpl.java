@@ -17,10 +17,12 @@ public class DeviceReportInfoServiceImpl implements DeviceReportInfoService {
     @Resource
     DeviceReportInfoMapper deviceReportInfoMapper;
 
+    @Override
     public void insertIntoDeviceReportInfo(DeviceReportInfo deviceReportInfo){
         deviceReportInfoMapper.insertSelective(deviceReportInfo);
     }
 
+    @Override
     public Integer updateByPrimaryKey(DeviceReportInfo deviceReportInfo){
         return deviceReportInfoMapper.updateByPrimaryKey(deviceReportInfo);
     }

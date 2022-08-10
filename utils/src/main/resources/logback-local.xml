@@ -9,7 +9,7 @@
 <configuration scan="true" scanPeriod="10 seconds" debug="false">
     <contextName>logback-local</contextName>
     <!--自定义的属性-->
-    <property name="logPath" value="/data/logs/util/"/>
+    <property name="logPath" value="/data/logs/util"/>
     <!--日志颜色渲染-->
     <conversionRule conversionWord="clr"
                     converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
@@ -83,7 +83,7 @@
             </pattern>
             <charset>UTF-8</charset>
         </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${logPath}/register/iot_register.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>300MB</maxFileSize>
             <maxHistory>15</maxHistory>
@@ -103,7 +103,7 @@
             </pattern>
             <charset>UTF-8</charset>
         </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${logPath}/login/iot_login.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>300MB</maxFileSize>
             <maxHistory>15</maxHistory>
