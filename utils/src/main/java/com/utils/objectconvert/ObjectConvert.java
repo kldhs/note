@@ -1,8 +1,12 @@
 package com.utils.objectconvert;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.cglib.beans.BeanCopier;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -46,6 +50,26 @@ public class ObjectConvert {
      */
     public static Object beanUtilCopyProperties(Object source, Object target) {
         BeanUtils.copyProperties(source, target);
+        return target;
+    }
+
+    /**
+     * 不复制为null的属性
+     */
+    public static Object beanUtilCopyPropertiesIgnoreNull(Object source, Object target){
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<String>();
+        for(java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) {
+                emptyNames.add(pd.getName());
+            }
+        }
+        String[] result = new String[emptyNames.size()];
+        String[] strings = emptyNames.toArray(result);
+        BeanUtils.copyProperties(src, target, strings);
         return target;
     }
 
