@@ -8,7 +8,7 @@
     <parent><!--继承的父pom文件信息-->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>2.1.7.RELEASE</version>
         <!-- <relativePath>../</relativePath>--><!--父POM的pom.xml文件路径，默认为../pom.xml.Maven首先在文件系统的这个位置查找父pom，然后在本地存储库中查找，最后在远程repo中查找。-->
         <!--<groupId>com.xs</groupId>-->
         <!--<artifactId>note</artifactId>-->
@@ -286,6 +286,7 @@
     </dependencies>
 
     <build><!--编译设置，全局配置（位于project下）针对整个项目的配置；不同profile配置（位于profiles）针对不同的profile配置-->
+        <!--<finalName>iot-push</finalName>--><!--指定最后的包名称-->
         <plugins><!--编译过程中使用的插件-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
