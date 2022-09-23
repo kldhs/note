@@ -38,7 +38,7 @@ public class FrameworkApplication extends SpringBootServletInitializer {
         ConfigurableApplicationContext context = SpringApplication.run(FrameworkApplication.class, args);
         RedisService test = SpringBootUtil.getBean(RedisService.class);
         test.aa();
-        new Lwm2mClient().createLwm2mClient("1111111111111");
+        //new Lwm2mClient().createLwm2mClient("1111111111111");
     }
 
 

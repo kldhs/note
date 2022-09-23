@@ -52,9 +52,12 @@ public class RedisService {
         //redis缓存设备最新消息
         String dayEntityValue = JSON.toJSONString(dayEntity);
         String dayEntityValue1 = JSONObject.toJSONString(dayEntity);
-        stringRedisTemplate.opsForValue().set("aaaaaaaaaaaa:",dayEntityValue);
+        stringRedisTemplate.opsForHash().put("ccccc:","qqqqqqqqq:",dayEntityValue);
 
-        stringRedisTemplate.opsForHash().increment("bbbbb", "name", 2);
+        stringRedisTemplate.opsForSet().add("ffff", "name");
+        stringRedisTemplate.opsForSet().add("ffff", "name1");
+        stringRedisTemplate.opsForSet().add("ffff", "name");
+        stringRedisTemplate.opsForSet().add("ffff", "name");
 
 
         System.out.println(dayEntityValue);
